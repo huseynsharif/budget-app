@@ -15,7 +15,10 @@
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/add" />
             <option value="$PROJECT_DIR$/features/records" />
+            <option value="$PROJECT_DIR$/features/reports" />
+            <option value="$PROJECT_DIR$/features/settings" />
           </set>
         </option>
       </GradleProjectSettings>
