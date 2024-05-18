@@ -15,4 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "BudgetApp"
 include(":app")
- 
+include(":core")
+include(":domain")
+include(":features:records")
