@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.huseynsharif.reports"
+    namespace = "com.huseynsharif.common"
     compileSdk = 33
 
     defaultConfig {
@@ -30,16 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    buildFeatures{
-        viewBinding = true
-    }
 }
 
 dependencies {
-
-    implementation(project(":core"))
-    implementation(project(":common"))
-
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -47,7 +40,4 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.7.7")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.7.7")
 }

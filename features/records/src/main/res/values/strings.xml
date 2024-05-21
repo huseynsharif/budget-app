@@ -1,3 +1,11 @@
 <resources>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_records">No Records</string>
+    <string name="raskhod_manager">Raskhod Manager</string>
+    <string name="_2024">2024</string>
+    <string name="may">May</string>
+    <string name="expenses">Expenses</string>
+    <string name="_0">0</string>
+    <string name="income">Income</string>
+    <string name="balance">Balance</string>
 </resources>
