@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/features/records" />
             <option value="$PROJECT_DIR$/features/reports" />
             <option value="$PROJECT_DIR$/features/settings" />
+            <option value="$PROJECT_DIR$/uikit" />
           </set>
         </option>
       </GradleProjectSettings>
