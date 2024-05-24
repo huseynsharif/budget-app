@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
 data class Account (
     @ColumnInfo(name = "name")
     val name: String,
+    @ColumnInfo(name = "type")
+    val type: AccountType,
     @ColumnInfo(name="currency")
     val currency:String,
     @ColumnInfo(name="amount")

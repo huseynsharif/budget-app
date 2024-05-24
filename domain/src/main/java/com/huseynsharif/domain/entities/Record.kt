@@ -1,6 +1,7 @@
 package com.huseynsharif.domain.entities
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -18,10 +19,10 @@ data class Record(
     val amount:Double,
     @ColumnInfo(name = "amount_usd")
     val amountUsd: Double,
-    @ColumnInfo(name = "amount_to")
-    val amountTo:Double?=null,
     @ColumnInfo(name = "category")
     val category: Category,
+    @ColumnInfo(name = "amount_to")
+    val amountTo:Double?=null,
     @ColumnInfo("record_id")
     @PrimaryKey(autoGenerate = true)
     val id:Long = 0

@@ -4,6 +4,6 @@ enum class RecordType {
 
     EXPENSES,
     INCOME,
-    TRANSFER
+    TRANSFER;
 
 }

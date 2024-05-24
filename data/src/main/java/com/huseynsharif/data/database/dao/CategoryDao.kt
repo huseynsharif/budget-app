@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
 import kotlinx.coroutines.flow.Flow
 
@@ -23,5 +24,8 @@ interface CategoryDao {
 
     @Update
     fun update(category : Category)
+
+    @Query("SELECT * FROM categories WHERE category_id = :id")
+    fun getCategoryById(id:Long): Category
 
 }

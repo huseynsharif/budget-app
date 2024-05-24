@@ -24,4 +24,7 @@ interface AccountDao {
     @Update
     fun update(account : Account)
 
+    @Query("SELECT * FROM accounts WHERE account_id = :id")
+    fun getAccountById(id:Long):Account
+
 }
