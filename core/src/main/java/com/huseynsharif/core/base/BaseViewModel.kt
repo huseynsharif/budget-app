@@ -2,7 +2,7 @@ package com.huseynsharif.core.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.huseynsharif.domain.remote.ResultWrapper
+import com.huseynsharif.domain.entities.remote.ResultWrapper
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

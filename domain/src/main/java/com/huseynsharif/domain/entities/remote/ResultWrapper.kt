@@ -1,4 +1,4 @@
-package com.huseynsharif.domain.remote
+package com.huseynsharif.domain.entities.remote
 
 sealed class ResultWrapper {
 

@@ -1,4 +1,4 @@
-package com.huseynsharif.domain
+package com.huseynsharif.domain.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
