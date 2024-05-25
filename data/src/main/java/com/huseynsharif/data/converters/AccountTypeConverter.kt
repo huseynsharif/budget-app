@@ -2,7 +2,6 @@ package com.huseynsharif.data.converters
 
 import androidx.room.TypeConverter
 import com.huseynsharif.domain.entities.AccountType
-import com.huseynsharif.domain.entities.RecordType
 
 class AccountTypeConverter {
 
