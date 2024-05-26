@@ -1,9 +1,6 @@
 package com.huseynsharif.add.fragments
 
-import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.huseynsharif.add.databinding.FragmentExpensesBinding
 import com.huseynsharif.add.viewModels.expenses.ExpensesEffect
@@ -19,17 +16,4 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
     }
 
     override fun getViewModelClass() = ExpensesViewModel::class.java
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val bottomSheetFragment = BottomSheetFragment()
-        binding = FragmentExpensesBinding.inflate(layoutInflater)
-//        binding.button.setOnClickListener{
-            Log.e("TAG", "GAF")
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
-//        }
-    }
-
-
-
 }

@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.add.R
 import com.huseynsharif.add.databinding.FragmentBottomSheetBinding
 
-class BottomSheetFragment : DialogFragment() {
+class BottomSheetFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetBinding;
 
