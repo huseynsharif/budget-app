@@ -2,6 +2,7 @@
 <resources>
     <color name="background_white">#FFFFFF</color>
     <color name="text_gray">#7c7c7c</color>
+    <color name="button_background_gray">#4D7C7C7C</color>
     <color name="yellow_background">#ffd946</color>
     <color name="dark_yellow_text">#66571c</color>
 

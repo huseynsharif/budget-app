@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="expense_icons_list">
+        <item>car</item>
+        <item>child</item>
+        <item>education</item>
+        <item>electronics</item>
+        <item>food</item>
+        <item>gift</item>
+        <item>heath</item>
+        <item>repair</item>
+        <item>shopping</item>
+        <item>snacks</item>
+        <item>sport</item>
+        <item>telephone</item>
+        <item>travel</item>
+    </string-array>
+
+
+</resources>

@@ -1,4 +1,4 @@
-package com.huseynsharif.add.viewModels
+package com.huseynsharif.add.viewModels.add
 
 import com.huseynsharif.core.base.BaseViewModel
 
