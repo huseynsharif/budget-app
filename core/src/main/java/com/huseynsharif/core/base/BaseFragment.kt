@@ -20,6 +20,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<State, Effect, 
     abstract val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
         viewModel = ViewModelProvider(this)[getViewModelClass()]
         binding = getViewBinding(inflater, container, false)
         return binding.root
