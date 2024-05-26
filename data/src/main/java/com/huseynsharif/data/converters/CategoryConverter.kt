@@ -1,20 +1,22 @@
 package com.huseynsharif.data.converters
 
 import androidx.room.TypeConverter
-import com.huseynsharif.data.database.db.DatabaseManager
-import com.huseynsharif.domain.entities.Account
+import com.google.gson.Gson
 import com.huseynsharif.domain.entities.Category
 
 class CategoryConverter {
 
+    private val gson = Gson()
+
+
     @TypeConverter
-    fun fromCategory(value: Category): Long{
-        return value.id
+    fun fromCategory(value: Category): String{
+        return gson.toJson(value)
     }
 
     @TypeConverter
-    fun toCategory(id:Long): Category {
-        return DatabaseManager.database.categoryDao().getCategoryById(id)
+    fun toCategory(value:String): Category {
+        return gson.fromJson(value, Category::class.java)
     }
 
 }

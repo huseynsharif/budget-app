@@ -2,6 +2,10 @@ package com.huseynsharif.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.huseynsharif.data.converters.AccountConverter
+import com.huseynsharif.data.converters.AccountTypeConverter
+import com.huseynsharif.data.converters.CategoryConverter
+import com.huseynsharif.data.converters.RecordTypeConverter
 import com.huseynsharif.data.database.dao.AccountDao
 import com.huseynsharif.data.database.dao.CategoryDao
 import com.huseynsharif.data.database.dao.RecordDao
@@ -22,6 +26,8 @@ object DataBaseModule {
     fun provideRoomDatabase(
         @ApplicationContext context:Context
     ):AppDatabase{
+
+
         return Room.databaseBuilder(
             context,
             AppDatabase::class.java, "budget-db"

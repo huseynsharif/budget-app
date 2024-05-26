@@ -4,6 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.huseynsharif.data.converters.AccountConverter
+import com.huseynsharif.data.converters.AccountTypeConverter
 import com.huseynsharif.data.converters.CategoryConverter
 import com.huseynsharif.data.converters.RecordTypeConverter
 import com.huseynsharif.data.database.dao.AccountDao
@@ -17,7 +18,7 @@ import com.huseynsharif.domain.entities.Record
     entities =[Record::class, Account::class, Category::class],
     version = 1
 )
-@TypeConverters(RecordTypeConverter::class, AccountConverter::class, CategoryConverter::class)
+@TypeConverters(RecordTypeConverter::class, AccountConverter::class, AccountTypeConverter::class, CategoryConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun recordDao():RecordDao
