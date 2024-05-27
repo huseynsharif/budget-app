@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="310dp"
+    android:background="#E6E6E6"
+    android:backgroundTint="@null"
+    android:padding="12dp"
+    tools:context=".KeyboardFragment">
+
+
+    <Button
+        android:id="@+id/dot"
+        style="@style/keyboard_button_style"
+        android:text="."
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_zero"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_zero"
+        style="@style/keyboard_button_style"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_back"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/dot" />
+
+    <Button
+        android:id="@+id/btn_back"
+        style="@style/keyboard_button_style"
+        android:text="b"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_submit"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn_zero" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        style="@style/keyboard_button_style"
+        android:background="@color/yellow_background"
+        android:text="s"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn_back" />
+
+    <Button
+        android:id="@+id/btn_one"
+        style="@style/keyboard_button_style"
+        android:text="@string/_1"
+        app:layout_constraintBottom_toTopOf="@+id/dot"
+        app:layout_constraintEnd_toStartOf="@+id/btn_two"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_two"
+        style="@style/keyboard_button_style"
+        android:text="@string/_2"
+        app:layout_constraintBottom_toTopOf="@+id/dot"
+        app:layout_constraintEnd_toStartOf="@+id/btn_three"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_one" />
+
+    <Button
+        android:id="@+id/btn_three"
+        style="@style/keyboard_button_style"
+        android:text="@string/_3"
+        app:layout_constraintBottom_toTopOf="@+id/dot"
+        app:layout_constraintEnd_toStartOf="@+id/btn_minus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_two" />
+
+    <Button
+        android:id="@+id/btn_minus"
+        style="@style/keyboard_button_style"
+        android:text="@string/minus"
+        app:layout_constraintBottom_toTopOf="@+id/dot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_three" />
+
+    <Button
+        android:id="@+id/btn_four"
+        style="@style/keyboard_button_style"
+        android:text="@string/_4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_one"
+        app:layout_constraintEnd_toStartOf="@+id/btn_five"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_five"
+        style="@style/keyboard_button_style"
+        android:text="@string/_5"
+        app:layout_constraintBottom_toTopOf="@+id/btn_one"
+        app:layout_constraintEnd_toStartOf="@+id/btn_six"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_four" />
+
+    <Button
+        android:id="@+id/btn_six"
+        style="@style/keyboard_button_style"
+        android:text="@string/_6"
+        app:layout_constraintBottom_toTopOf="@+id/btn_one"
+        app:layout_constraintEnd_toStartOf="@+id/btn_plus"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_five" />
+
+    <Button
+        android:id="@+id/btn_plus"
+        style="@style/keyboard_button_style"
+        android:text="@string/plus"
+        app:layout_constraintBottom_toTopOf="@+id/btn_one"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_six" />
+
+    <Button
+        android:id="@+id/btn_seven"
+        style="@style/keyboard_button_style"
+        android:text="@string/_7"
+        app:layout_constraintBottom_toTopOf="@+id/btn_four"
+        app:layout_constraintEnd_toStartOf="@+id/btn_eight"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_eight"
+        style="@style/keyboard_button_style"
+        android:text="@string/_8"
+        app:layout_constraintBottom_toTopOf="@+id/btn_four"
+        app:layout_constraintEnd_toStartOf="@+id/btn_nine"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_seven" />
+
+    <Button
+        android:id="@+id/btn_nine"
+        style="@style/keyboard_button_style"
+        android:text="@string/_9"
+        app:layout_constraintBottom_toTopOf="@+id/btn_four"
+        app:layout_constraintEnd_toStartOf="@+id/btn_date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn_eight" />
+
+    <Button
+        android:id="@+id/btn_date"
+        style="@style/keyboard_button_style"
+        android:text="Today"
+        app:layout_constraintBottom_toTopOf="@+id/btn_four"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@+id/btn_nine" />
+
+    <EditText
+        android:id="@+id/note_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button_background"
+        android:ems="10"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/enter_note"
+        android:inputType="text"
+        android:minHeight="40dp"
+        android:padding="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_eight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
