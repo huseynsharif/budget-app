@@ -1,6 +1,7 @@
 package com.huseynsharif.add.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,7 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
         super.onViewCreated(view, savedInstanceState)
 
         binding.keyboard.onSubmit = {
-            println(it)
+            Log.e("LOG", it)
         }
-
     }
 }
