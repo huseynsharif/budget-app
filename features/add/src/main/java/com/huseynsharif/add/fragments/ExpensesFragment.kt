@@ -23,8 +23,6 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.keyboard.onSubmit = {
-            Log.e("LOG", it)
-        }
+
     }
 }

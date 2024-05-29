@@ -1,6 +1,7 @@
 package com.huseynsharif.add.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,10 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel, AddState, Add
                 else -> null
             }
         }.attach()
+
+        binding.keyboard.onSubmit = {
+            Log.e("LOG", it)
+        }
     }
 
 }

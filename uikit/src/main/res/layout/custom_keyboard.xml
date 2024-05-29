@@ -174,7 +174,7 @@
         android:id="@+id/btn_date"
         style="@style/keyboard_button_style"
         android:layout_marginBottom="4dp"
-        android:height="55dp"
+        android:height="56dp"
         android:text="@string/_24_may_2024"
         android:textSize="14sp"
         app:backgroundTint="@null"
