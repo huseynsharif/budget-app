@@ -19,10 +19,5 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
     }
 
     override fun getViewModelClass() = ExpensesViewModel::class.java
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
+    
 }

@@ -3,7 +3,6 @@ package com.huseynsharif.uikit
 import android.app.DatePickerDialog
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.huseynsharif.uikit.databinding.CustomKeyboardBinding
