@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
+
     <string-array name="expense_icons_list">
         <item>car</item>
         <item>child</item>
@@ -15,6 +15,14 @@
         <item>sport</item>
         <item>telephone</item>
         <item>travel</item>
+    </string-array>
+
+    <string-array name="income_icons_list">
+
+    </string-array>
+
+    <string-array name="transfer_icons_list">
+
     </string-array>
 
 

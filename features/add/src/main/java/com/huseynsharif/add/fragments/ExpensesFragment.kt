@@ -11,6 +11,7 @@ import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
 import com.huseynsharif.add.viewModels.expenses.ExpensesState
 import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.core.base.BaseFragment
+import com.huseynsharif.domain.entities.RecordType
 
 class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel, ExpensesState, ExpensesEffect, ExpensesEvent>() {
     override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExpensesBinding
@@ -24,8 +25,9 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
         super.onViewCreated(view, savedInstanceState)
 
         binding.categoryIcon.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment()
+            val bottomSheetFragment = BottomSheetFragment(RecordType.EXPENSES)
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+
         }
     }
 

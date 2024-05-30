@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.huseynsharif.add.R
 import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.domain.entities.Category
 import com.huseynsharif.uikit.databinding.CardIconBinding
@@ -43,6 +44,8 @@ class IconsAdapter(
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
         val item = getItem(position)
         holder.bindData(item)
+        holder.itemView.setOnClickListener {
+        }
     }
 
 }
