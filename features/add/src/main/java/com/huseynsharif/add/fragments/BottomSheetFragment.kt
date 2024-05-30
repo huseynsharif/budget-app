@@ -16,8 +16,10 @@ import com.huseynsharif.domain.entities.RecordType
 import javax.inject.Inject
 
 class BottomSheetFragment(
-    private val recordType: RecordType
-    ) : BottomSheetDialogFragment() {
+    private val recordType: RecordType,
+    private val selectedCategory:String,
+    private val getPinned: (String) -> Unit
+) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentBottomSheetBinding;
 
@@ -40,7 +42,7 @@ class BottomSheetFragment(
 
     private fun getIcons() {
 
-        val array = when (recordType){
+        val array = when (recordType) {
             RecordType.EXPENSES -> resources.getStringArray(com.huseynsharif.common.R.array.expense_icons_list)
             RecordType.INCOME -> resources.getStringArray(com.huseynsharif.common.R.array.income_icons_list)
             RecordType.TRANSFER -> resources.getStringArray(com.huseynsharif.common.R.array.transfer_icons_list)
@@ -54,7 +56,9 @@ class BottomSheetFragment(
     }
 
     private fun initAdapter() {
-        adapter = IconsAdapter(requireContext())
+        adapter = IconsAdapter(requireContext(),selectedCategory,  getPinned){
+            this.dismiss()
+        }
         val layoutManager = GridLayoutManager(requireContext(), 4)
         binding.categories.layoutManager = layoutManager
         binding.categories.adapter = adapter

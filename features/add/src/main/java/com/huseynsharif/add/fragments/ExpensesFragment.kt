@@ -10,6 +10,7 @@ import com.huseynsharif.add.viewModels.expenses.ExpensesEffect
 import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
 import com.huseynsharif.add.viewModels.expenses.ExpensesState
 import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
+import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.core.base.BaseFragment
 import com.huseynsharif.domain.entities.RecordType
 
@@ -25,7 +26,10 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
         super.onViewCreated(view, savedInstanceState)
 
         binding.categoryIcon.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment(RecordType.EXPENSES)
+            val bottomSheetFragment = BottomSheetFragment(RecordType.EXPENSES, binding.categoryName.text.toString()){iconName->
+                binding.categoryIcon.setImageResource(getResourceIdByName(requireContext(), iconName))
+                binding.categoryName.text = iconName
+            }
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
 
         }

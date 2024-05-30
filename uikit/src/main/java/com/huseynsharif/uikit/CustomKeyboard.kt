@@ -1,6 +1,6 @@
 package com.huseynsharif.uikit
 
-import android.app.DatePickerDialog
+import  android.app.DatePickerDialog
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -54,11 +54,8 @@ class CustomKeyboard @JvmOverloads constructor(
             }
 
             listOf(
-                dot,
-                btnPlus,
-                btnMinus
-            )
-                .forEach { button ->
+                dot, btnPlus, btnMinus
+            ).forEach { button ->
                     button.setOnClickListener {
                         try {
                             if (".+-".contains(inputList.last())) {

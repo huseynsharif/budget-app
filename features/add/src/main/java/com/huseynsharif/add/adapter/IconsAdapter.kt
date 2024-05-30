@@ -12,8 +12,12 @@ import com.huseynsharif.domain.entities.Category
 import com.huseynsharif.uikit.databinding.CardIconBinding
 
 class IconsAdapter(
-    private val context: Context
+    private val context: Context,
+    private val selectedCategory:String,
+    private val getPinned: (String) -> Unit,
+    private val closeBottomSheet : ()->Unit
 ) : ListAdapter<Category, IconsAdapter.IconsViewHolder>(IconDiffCheck()) {
+
 
     inner class IconsViewHolder(
         private val binding: CardIconBinding
@@ -22,6 +26,14 @@ class IconsAdapter(
             binding.apply {
                 binding.icon.setImageResource(getResourceIdByName(context, icon.title.lowercase()))
                 binding.iconTitle.text = icon.title
+                if (selectedCategory==icon.icon){
+                    binding.icon.setBackgroundResource(com.huseynsharif.uikit.R.drawable.selected_icon_background)
+                }
+                binding.icon.setOnClickListener{
+                    getPinned.invoke(icon.icon)
+                    closeBottomSheet.invoke()
+                }
+
             }
         }
     }
@@ -44,8 +56,6 @@ class IconsAdapter(
     override fun onBindViewHolder(holder: IconsViewHolder, position: Int) {
         val item = getItem(position)
         holder.bindData(item)
-        holder.itemView.setOnClickListener {
-        }
     }
 
 }
