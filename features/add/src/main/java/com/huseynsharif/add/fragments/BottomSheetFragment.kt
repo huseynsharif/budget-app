@@ -20,7 +20,6 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         binding = FragmentBottomSheetBinding.inflate(layoutInflater)
 
-
         return binding.root
     }
 

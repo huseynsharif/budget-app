@@ -37,6 +37,7 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":domain"))
     implementation(project(":uikit"))
 
     implementation("androidx.core:core-ktx:1.9.0")
