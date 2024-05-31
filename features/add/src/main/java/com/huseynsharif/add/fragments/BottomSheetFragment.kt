@@ -45,7 +45,7 @@ class BottomSheetFragment(
         val array = when (recordType) {
             RecordType.EXPENSES -> resources.getStringArray(com.huseynsharif.common.R.array.expense_icons_list)
             RecordType.INCOME -> resources.getStringArray(com.huseynsharif.common.R.array.income_icons_list)
-            RecordType.TRANSFER -> resources.getStringArray(com.huseynsharif.common.R.array.transfer_icons_list)
+            RecordType.TRANSFER -> resources.getStringArray(com.huseynsharif.common.R.array.account_type_icons_list)
         }
         val icons = mutableListOf<Category>()
         for (a in array) {

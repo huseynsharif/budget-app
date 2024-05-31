@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.huseynsharif.add.R
 import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.domain.entities.Category
 import com.huseynsharif.uikit.databinding.CardIconBinding
@@ -17,7 +16,6 @@ class IconsAdapter(
     private val getPinned: (String) -> Unit,
     private val closeBottomSheet : ()->Unit
 ) : ListAdapter<Category, IconsAdapter.IconsViewHolder>(IconDiffCheck()) {
-
 
     inner class IconsViewHolder(
         private val binding: CardIconBinding
@@ -33,7 +31,6 @@ class IconsAdapter(
                     getPinned.invoke(icon.icon)
                     closeBottomSheet.invoke()
                 }
-
             }
         }
     }

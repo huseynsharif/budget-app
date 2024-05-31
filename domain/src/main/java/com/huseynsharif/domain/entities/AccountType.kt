@@ -5,6 +5,7 @@ enum class AccountType {
     CASH,
     DEBIT,
     MASTERCARD,
-    VISA
+    VISA,
+    BITCOIN
 
 }

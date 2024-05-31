@@ -21,8 +21,12 @@
 
     </string-array>
 
-    <string-array name="transfer_icons_list">
-
+    <string-array name="account_type_icons_list">
+        <item>cash</item>
+        <item>bitcoin</item>
+        <item>debit</item>
+        <item>mastercard</item>
+        <item>visa</item>
     </string-array>
 
 

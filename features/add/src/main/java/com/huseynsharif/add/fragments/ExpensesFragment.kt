@@ -1,7 +1,6 @@
 package com.huseynsharif.add.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.core.base.BaseFragment
 import com.huseynsharif.domain.entities.RecordType
+import com.huseynsharif.uikit.AccountListBottomSheet
 
 class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel, ExpensesState, ExpensesEffect, ExpensesEvent>() {
     override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExpensesBinding
@@ -31,8 +31,11 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
                 binding.categoryName.text = iconName
             }
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+        }
 
+        binding.accountIcon.setOnClickListener{
+            val bottomSheetFragment = AccountListBottomSheet()
+            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }
     }
-
 }
