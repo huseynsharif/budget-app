@@ -20,4 +20,9 @@
     <string name="dot">.</string>
     <string name="_20_10">20+10</string>
     <string name="_24_may_2024">24 May 2024</string>
+    <string name="add_account">Add Account</string>
+    <string name="account_name">Account Name</string>
+    <string name="account_info">Account Info</string>
+    <string name="amount">Amount</string>
+    <string name="save">Save</string>
 </resources>

@@ -13,9 +13,9 @@ import com.huseynsharif.uikit.databinding.CardAccountBinding
 
 class AccountsAdapter(
     private val context: Context,
-//    private val selectedAccount:String,
-//    private val getPinned: (String) -> Unit,
-//    private val closeBottomSheet : ()->Unit
+    private val selectedAccount: String,
+    private val getPinned: (String) -> Unit,
+    private val closeBottomSheet : ()->Unit
 ): ListAdapter<Account, AccountsAdapter.AccountsViewHolder>(AccountsAdapter.AccountDiffCheck()) {
 
     inner class AccountsViewHolder(
@@ -29,6 +29,13 @@ class AccountsAdapter(
                 binding.balance.text = account.amount.toString()
                 binding.accountIcon.setImageResource(getResourceIdByName(context, account.type.name))
 
+                if (selectedAccount==account.name){
+                    binding.root.setBackgroundResource(com.huseynsharif.uikit.R.drawable.selected_account_background)
+                }
+                binding.root.setOnClickListener {
+                    getPinned.invoke(account.name)
+                    closeBottomSheet.invoke()
+                }
             }
         }
     }

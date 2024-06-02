@@ -15,7 +15,10 @@ import com.huseynsharif.add.viewModels.add.AddEvent
 import com.huseynsharif.add.viewModels.add.AddState
 import com.huseynsharif.add.viewModels.add.AddViewModel
 import com.huseynsharif.core.base.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel, AddState, AddEffect, AddEvent>() {
     override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddBinding
             = { inflater, viewGroup, value ->

@@ -13,7 +13,9 @@ import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.core.base.BaseFragment
 import com.huseynsharif.domain.entities.RecordType
 import com.huseynsharif.uikit.AccountListBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel, ExpensesState, ExpensesEffect, ExpensesEvent>() {
     override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExpensesBinding
         = { inflater, viewGroup, value ->
@@ -34,7 +36,10 @@ class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel
         }
 
         binding.accountIcon.setOnClickListener{
-            val bottomSheetFragment = AccountListBottomSheet()
+            val bottomSheetFragment = AccountListBottomSheet(binding.accountName.text.toString()){accountName ->
+//                binding.accountIcon.setImageResource(getResourceIdByName(requireContext(), ))
+                    binding.accountName.text = accountName
+            }
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }
     }

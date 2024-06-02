@@ -5,5 +5,8 @@
     <color name="button_background_gray">#4D7C7C7C</color>
     <color name="yellow_background">#ffd946</color>
     <color name="dark_yellow_text">#66571c</color>
+    <color name="blue">#0018FF</color>
+    <color name="light_blue">#E3F1FB</color>
+    <color name="light_yellow">#FBF6E3</color>
 
 </resources>

@@ -1,19 +1,21 @@
 package com.huseynsharif.uikit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.AccountType
 import com.huseynsharif.uikit.adapter.AccountsAdapter
 import com.huseynsharif.uikit.databinding.FragmentAccountListBottomSheetBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class AccountListBottomSheet : BottomSheetDialogFragment() {
+@AndroidEntryPoint
+class AccountListBottomSheet(
+    private val selectedCategory: String,
+    private val getPinned: (String) -> Unit
+) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentAccountListBottomSheetBinding
     private lateinit var adapter: AccountsAdapter
@@ -29,10 +31,16 @@ class AccountListBottomSheet : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
+        binding.btnAddAccount.setOnClickListener{
+            val bottomSheet = AddAccountBottomSheet()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
     }
 
     private fun initAdapter() {
-        adapter = AccountsAdapter(requireContext())
+        adapter = AccountsAdapter(requireContext(), selectedCategory, getPinned) {
+            this.dismiss()
+        }
         binding.accounts.adapter = adapter
 
         val accounts = mutableListOf<Account>(

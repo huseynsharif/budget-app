@@ -22,11 +22,35 @@
     </string-array>
 
     <string-array name="account_type_icons_list">
-        <item>cash</item>
-        <item>bitcoin</item>
-        <item>debit</item>
-        <item>mastercard</item>
-        <item>visa</item>
+        <item>Cash</item>
+        <item>Bitcoin</item>
+        <item>Debit</item>
+        <item>Mastercard</item>
+        <item>Visa</item>
+    </string-array>
+
+    <string-array name="currency_list">
+        <item>USD</item>
+        <item>AZN</item>
+        <item>EUR</item>
+        <item>JPY</item>
+        <item>GBP</item>
+        <item>AUD</item>
+        <item>CAD</item>
+        <item>CHF</item>
+        <item>CNY</item>
+        <item>SEK</item>
+        <item>NZD</item>
+        <item>MXN</item>
+        <item>SGD</item>
+        <item>HKD</item>
+        <item>NOK</item>
+        <item>KRW</item>
+        <item>TRY</item>
+        <item>RUB</item>
+        <item>INR</item>
+        <item>BRL</item>
+        <item>ZAR</item>
     </string-array>
 
 
