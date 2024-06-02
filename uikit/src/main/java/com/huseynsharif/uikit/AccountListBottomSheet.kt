@@ -4,21 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.huseynsharif.data.database.dao.AccountDao
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.AccountType
 import com.huseynsharif.uikit.adapter.AccountsAdapter
 import com.huseynsharif.uikit.databinding.FragmentAccountListBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.toList
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AccountListBottomSheet(
     private val selectedCategory: String,
-    private val getPinned: (String) -> Unit
+    private val getPinned: (Account) -> Unit
 ) : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentAccountListBottomSheetBinding
     private lateinit var adapter: AccountsAdapter
+
+    @Inject
+    lateinit var accountDao: AccountDao
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,15 +51,13 @@ class AccountListBottomSheet(
         }
         binding.accounts.adapter = adapter
 
-        val accounts = mutableListOf<Account>(
-            Account("Huseyn", AccountType.CASH, "USD", 4.5, 4.5),
-            Account("User", AccountType.VISA, "AZN", 4.5, 4.5),
-            Account("Admin", AccountType.MASTERCARD, "TRY", 43.4, 4.5)
-        )
+        val accounts = accountDao.getAll()
 
-        adapter.submitList(accounts)
+        lifecycleScope.launch {
+            accounts.collect{list ->
+                adapter.submitList(list)
+            }
+        }
 
     }
-
-
 }

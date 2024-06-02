@@ -17,15 +17,15 @@ interface CategoryDao {
     fun getAll(): Flow<List<Category>>
 
     @Delete
-    fun delete(category : Category)
+    fun delete(category: Category)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(category : Category)
+    fun insert(category: Category)
 
     @Update
-    fun update(category : Category)
+    fun update(category: Category)
 
     @Query("SELECT * FROM categories WHERE category_id = :id")
-    fun getCategoryById(id:Long): Category
+    fun getCategoryById(id: Long): Category
 
 }

@@ -16,15 +16,15 @@ interface AccountDao {
     fun getAll(): Flow<List<Account>>
 
     @Delete
-    fun delete(account : Account)
+    fun delete(account: Account)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(account : Account)
+    fun insert(account: Account)
 
     @Update
-    fun update(account : Account)
+    fun update(account: Account)
 
     @Query("SELECT * FROM accounts WHERE account_id = :id")
-    fun getAccountById(id:Long):Account
+    fun getAccountById(id: Long): Account
 
 }

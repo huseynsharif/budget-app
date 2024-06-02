@@ -17,12 +17,12 @@ interface RecordDao {
     fun getAll(): Flow<List<Record>>
 
     @Delete
-    fun delete(record :Record)
+    fun delete(record: Record)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(record :Record)
+    fun insert(record: Record)
 
     @Update
-    fun update(record :Record)
+    fun update(record: Record)
 
 }

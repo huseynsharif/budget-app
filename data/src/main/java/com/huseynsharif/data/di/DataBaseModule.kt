@@ -24,13 +24,12 @@ object DataBaseModule {
     @Provides
     @Singleton
     fun provideRoomDatabase(
-        @ApplicationContext context:Context
-    ):AppDatabase{
+        @ApplicationContext context: Context
+    ): AppDatabase {
 
 
         return Room.databaseBuilder(
-            context,
-            AppDatabase::class.java, "budget-db"
+            context, AppDatabase::class.java, "budget-db"
         ).build()
     }
 
@@ -38,7 +37,7 @@ object DataBaseModule {
     @Singleton
     fun provideRecordDao(
         appDatabase: AppDatabase
-    ) : RecordDao{
+    ): RecordDao {
         return appDatabase.recordDao()
     }
 
@@ -46,7 +45,7 @@ object DataBaseModule {
     @Singleton
     fun provideAccountDao(
         appDatabase: AppDatabase
-    ) : AccountDao{
+    ): AccountDao {
         return appDatabase.accountDao()
     }
 
@@ -54,7 +53,7 @@ object DataBaseModule {
     @Singleton
     fun provideCategoryDao(
         appDatabase: AppDatabase
-    ) : CategoryDao{
+    ): CategoryDao {
         return appDatabase.categoryDao()
     }
 }

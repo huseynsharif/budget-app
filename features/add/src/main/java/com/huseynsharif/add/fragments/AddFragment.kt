@@ -15,17 +15,23 @@ import com.huseynsharif.add.viewModels.add.AddEvent
 import com.huseynsharif.add.viewModels.add.AddState
 import com.huseynsharif.add.viewModels.add.AddViewModel
 import com.huseynsharif.core.base.BaseFragment
+import com.huseynsharif.domain.entities.Record
+import com.huseynsharif.domain.entities.RecordType
 import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel, AddState, AddEffect, AddEvent>() {
-    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddBinding
-            = { inflater, viewGroup, value ->
-        FragmentAddBinding.inflate(inflater, viewGroup, value)
-    }
+class AddFragment :
+    BaseFragment<FragmentAddBinding, AddViewModel, AddState, AddEffect, AddEvent>() {
+    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAddBinding =
+        { inflater, viewGroup, value ->
+            FragmentAddBinding.inflate(inflater, viewGroup, value)
+        }
 
     override fun getViewModelClass() = AddViewModel::class.java
+
+    lateinit var record: Record
+    var currentTab = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,11 +49,15 @@ class AddFragment : BaseFragment<FragmentAddBinding, AddViewModel, AddState, Add
                 2 -> "Transfer"
                 else -> null
             }
+            currentTab = tab.text.toString()
         }.attach()
 
-        binding.keyboard.onSubmit = {
-            Log.e("LOG", it)
-        }
+//        binding.keyboard.onSubmit = { recordKeyboardDto ->
+//            viewModel.saveRecord(
+//                currentTab, recordKeyboardDto,
+//
+//                )
+//        }
     }
 
 }

@@ -13,13 +13,16 @@ import androidx.viewbinding.ViewBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
-abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<State, Effect, Event>, State, Effect, Event> : Fragment() {
+abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<State, Effect, Event>, State, Effect, Event> :
+    Fragment() {
     lateinit var viewModel: VM
     lateinit var binding: VB
 
     abstract val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> VB
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         viewModel = ViewModelProvider(this)[getViewModelClass()]
         binding = getViewBinding(inflater, container, false)
@@ -28,19 +31,13 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<State, Effect, 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.state
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
+        viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).onEach {
                 onStateUpdate(it)
-            }
-            .launchIn(lifecycleScope)
+            }.launchIn(lifecycleScope)
 
-        viewModel.effect
-            .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-            .onEach {
+        viewModel.effect.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).onEach {
                 onEffectUpdate(it)
-            }
-            .launchIn(lifecycleScope)
+            }.launchIn(lifecycleScope)
     }
 
     abstract fun getViewModelClass(): Class<VM>
@@ -50,6 +47,4 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<State, Effect, 
     protected open fun postEvent(event: Event) {
         viewModel.postEvent(event)
     }
-
-
 }

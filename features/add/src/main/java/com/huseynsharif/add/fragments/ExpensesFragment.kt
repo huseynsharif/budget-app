@@ -11,36 +11,71 @@ import com.huseynsharif.add.viewModels.expenses.ExpensesState
 import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.core.base.BaseFragment
+import com.huseynsharif.domain.entities.Account
+import com.huseynsharif.domain.entities.Category
+import com.huseynsharif.domain.entities.Record
 import com.huseynsharif.domain.entities.RecordType
 import com.huseynsharif.uikit.AccountListBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExpensesFragment : BaseFragment<FragmentExpensesBinding, ExpensesViewModel, ExpensesState, ExpensesEffect, ExpensesEvent>() {
-    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExpensesBinding
-        = { inflater, viewGroup, value ->
-        FragmentExpensesBinding.inflate(inflater, viewGroup, value)
-    }
+class ExpensesFragment :
+    BaseFragment<FragmentExpensesBinding, ExpensesViewModel, ExpensesState, ExpensesEffect, ExpensesEvent>() {
+    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExpensesBinding =
+        { inflater, viewGroup, value ->
+            FragmentExpensesBinding.inflate(inflater, viewGroup, value)
+        }
+
+    lateinit var selectedAccount: Account
+    lateinit var selectedCategory: Category
 
     override fun getViewModelClass() = ExpensesViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.categoryIcon.setOnClickListener {
-            val bottomSheetFragment = BottomSheetFragment(RecordType.EXPENSES, binding.categoryName.text.toString()){iconName->
-                binding.categoryIcon.setImageResource(getResourceIdByName(requireContext(), iconName))
-                binding.categoryName.text = iconName
+        binding.apply {
+            categoryIcon.setOnClickListener {
+                initCategoryBottomSheet()
             }
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+            categoryName.setOnClickListener {
+                initCategoryBottomSheet()
+            }
+            accountIcon.setOnClickListener {
+                initAccountListBottomSheet()
+            }
+            accountName.setOnClickListener {
+                initAccountListBottomSheet()
+            }
         }
+    }
 
-        binding.accountIcon.setOnClickListener{
-            val bottomSheetFragment = AccountListBottomSheet(binding.accountName.text.toString()){accountName ->
-//                binding.accountIcon.setImageResource(getResourceIdByName(requireContext(), ))
-                    binding.accountName.text = accountName
-            }
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    private fun initCategoryBottomSheet() {
+        val bottomSheetFragment = BottomSheetFragment(
+            RecordType.EXPENSES, binding.categoryName.text.toString()
+        ) { iconName ->
+            binding.categoryIcon.setImageResource(
+                getResourceIdByName(
+                    requireContext(), iconName
+                )
+            )
+            binding.categoryName.text = iconName
+            this.selectedCategory = Category(iconName, iconName, RecordType.EXPENSES)
         }
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun initAccountListBottomSheet() {
+        val bottomSheetFragment =
+            AccountListBottomSheet(binding.accountName.text.toString()) { account ->
+                binding.accountIcon.setImageResource(
+                    getResourceIdByName(
+                        requireContext(), account.type.name.lowercase()
+                    )
+                )
+                binding.accountName.text = account.name
+                this.selectedAccount = account
+            }
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
 }

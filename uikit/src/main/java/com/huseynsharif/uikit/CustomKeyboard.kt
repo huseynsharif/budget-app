@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.huseynsharif.domain.entities.dtos.RecordKeyboardDto
 import com.huseynsharif.uikit.databinding.CustomKeyboardBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -19,7 +20,7 @@ class CustomKeyboard @JvmOverloads constructor(
 
     private val inputList = mutableListOf<String>()
 
-    lateinit var onSubmit: (String) -> Unit
+    lateinit var onSubmit: (RecordKeyboardDto) -> Unit
 
     fun getBinding() = binding
 
@@ -79,9 +80,9 @@ class CustomKeyboard @JvmOverloads constructor(
                 renderInput()
             }
 
-            btnSubmit.setOnClickListener {
-                onSubmit.invoke(binding.input.text.toString())
-            }
+//            btnSubmit.setOnClickListener {
+//                onSubmit.invoke(binding.input.text.toString())
+//            }
 
             btnDate.setOnClickListener {
                 showDatePickerDialog { day, month, year ->

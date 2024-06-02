@@ -73,6 +73,8 @@ abstract class BaseViewModel<State, Effect, Event> : ViewModel(){
 
                 onSuccess(result.value as T)
             }
+
+            else -> {}
         }
     }
 

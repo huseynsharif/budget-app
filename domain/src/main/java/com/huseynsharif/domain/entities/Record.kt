@@ -10,20 +10,20 @@ data class Record(
     @ColumnInfo(name = "type")
     val type: RecordType,
     @ColumnInfo(name = "note")
-    val note:String,
+    val note: String,
     @ColumnInfo(name = "account")
     val account: Account,
-    @ColumnInfo(name = "account_to")
-    val accountTo: Account,
     @ColumnInfo(name = "amount")
-    val amount:Double,
-    @ColumnInfo(name = "amount_usd")
-    val amountUsd: Double,
+    val amount: Double,
     @ColumnInfo(name = "category")
     val category: Category,
     @ColumnInfo(name = "amount_to")
-    val amountTo:Double?=null,
+    val amountTo: Double? = null,
+    @ColumnInfo(name = "account_to")
+    val accountTo: Account? = null,
+    @ColumnInfo(name = "amount_usd")
+    val amountUsd: Double?=null,
     @ColumnInfo("record_id")
     @PrimaryKey(autoGenerate = true)
-    val id:Long = 0
+    val id: Long = 0
 )

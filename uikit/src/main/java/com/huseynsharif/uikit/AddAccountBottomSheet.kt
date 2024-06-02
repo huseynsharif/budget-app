@@ -69,17 +69,17 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.currency.adapter = adapter
 
-        binding.currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long
-            ) {
-                val selectedItem = parent.getItemAtPosition(position).toString()
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
+//        binding.currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parent: AdapterView<*>, view: View, position: Int, id: Long
+//            ) {
+//                val selectedItem = parent.getItemAtPosition(position).toString()
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//        }
 
     }
 
@@ -90,18 +90,18 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, accountTypes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.accountType.adapter = adapter
-
-        binding.currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>, view: View, position: Int, id: Long
-            ) {
-                val selectedItem = parent.getItemAtPosition(position).toString()
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
-        }
+//        binding.accountType.selectedItem
+//        binding.currency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+//            override fun onItemSelected(
+//                parent: AdapterView<*>, view: View, position: Int, id: Long
+//            ) {
+//                val selectedItem = parent.getItemAtPosition(position).toString()
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//                TODO("Not yet implemented")
+//            }
+//        }
     }
 
 }
