@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/notebook"
+        android:id="@+id/records_main_navigation"
+        android:title="@string/records" />
+
+
+    <item
+        android:icon="@drawable/plus"
+        android:id="@+id/add_main_navigation"
+        android:title="@string/add" />
+
+
+    <item
+        android:icon="@drawable/newspaper"
+        android:id="@+id/reports_main_navigation"
+        android:title="@string/reports" />
+
+    <item
+        android:icon="@drawable/settings"
+        android:id="@+id/settings_main_navigation"
+        android:title="@string/settings" />
+
+
+
+</menu>

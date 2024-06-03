@@ -29,7 +29,7 @@ class AccountsAdapter(
                 binding.balance.text = account.amount.toString()
                 binding.accountIcon.setImageResource(
                     getResourceIdByName(
-                        context, account.type.name
+                        context, account.type.name.lowercase()
                     )
                 )
 
@@ -63,6 +63,4 @@ class AccountsAdapter(
         val item = getItem(position)
         holder.bindData(item)
     }
-
-
 }
