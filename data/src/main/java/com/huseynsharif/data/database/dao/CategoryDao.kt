@@ -28,4 +28,9 @@ interface CategoryDao {
     @Query("SELECT * FROM categories WHERE category_id = :id")
     fun getCategoryById(id: Long): Category
 
+    @Query("SELECT * FROM categories WHERE  title = :title")
+    fun getCategoryByTitle(title: String): Category
+
+
+
 }

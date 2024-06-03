@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.huseynsharif.add.R
 import com.huseynsharif.add.databinding.FragmentExpensesBinding
@@ -20,6 +21,7 @@ import com.huseynsharif.domain.entities.Record
 import com.huseynsharif.domain.entities.RecordType
 import com.huseynsharif.uikit.AccountListBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExpensesFragment :
@@ -29,8 +31,8 @@ class ExpensesFragment :
             FragmentExpensesBinding.inflate(inflater, viewGroup, value)
         }
 
-    lateinit var selectedAccount: Account
-    lateinit var selectedCategory: Category
+    private var selectedAccount: Account? = null
+    private var selectedCategory: Category? = null
 
     override fun getViewModelClass() = ExpensesViewModel::class.java
 
@@ -51,9 +53,36 @@ class ExpensesFragment :
                 initAccountListBottomSheet()
             }
             keyboard.onSubmit = {
-                saveRecord()
-                Toast.makeText(requireContext(), "Record has been saved.", Toast.LENGTH_LONG).show()
+                if (checkFields()) {
+                    saveRecord()
+                    Toast.makeText(requireContext(), "Record has been saved.", Toast.LENGTH_LONG)
+                        .show()
+                }
             }
+        }
+
+        getInitialFields()
+    }
+
+    private fun checkFields(): Boolean {
+        return if (selectedAccount == null) {
+            Toast.makeText(requireContext(), "You have to select an account.", Toast.LENGTH_LONG)
+                .show()
+            false
+        }
+        else if(binding.keyboard.getBinding().input.text.isEmpty()){
+            Toast.makeText(requireContext(), "You have to enter the amount.", Toast.LENGTH_LONG)
+                .show()
+            false
+        }
+        else {
+            true
+        }
+    }
+
+    private fun getInitialFields() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            selectedCategory = viewModel.getCategoryCar()
         }
     }
 
@@ -86,14 +115,14 @@ class ExpensesFragment :
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
 
-    private fun saveRecord(){
+    private fun saveRecord() {
         val record = Record(
             RecordType.EXPENSES,
-            binding.keyboard.getBinding().noteEditText.text.toString(),
-            selectedAccount,
+            selectedAccount!!,
             binding.keyboard.getResult(),
-            selectedCategory,
-            binding.keyboard.dateMillis
+            selectedCategory!!,
+            binding.keyboard.dateMillis,
+            binding.keyboard.getBinding().noteEditText.text?.toString()
         )
         viewModel.postEvent(
             ExpensesEvent.AddExpense(record)

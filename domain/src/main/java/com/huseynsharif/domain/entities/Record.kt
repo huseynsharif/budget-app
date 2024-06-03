@@ -9,8 +9,6 @@ import androidx.room.PrimaryKey
 data class Record(
     @ColumnInfo(name = "type")
     val type: RecordType,
-    @ColumnInfo(name = "note")
-    val note: String,
     @ColumnInfo(name = "account")
     val account: Account,
     @ColumnInfo(name = "amount")
@@ -18,6 +16,8 @@ data class Record(
     @ColumnInfo(name = "category")
     val category: Category,
     val createdAt:Long,
+    @ColumnInfo(name = "note")
+    val note: String?=null,
     @ColumnInfo(name = "amount_to")
     val amountTo: Double? = null,
     @ColumnInfo(name = "account_to")
