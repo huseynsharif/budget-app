@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import com.huseynsharif.add.R
 import com.huseynsharif.add.databinding.FragmentExpensesBinding
 import com.huseynsharif.add.viewModels.expenses.ExpensesEffect
 import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
@@ -47,6 +50,10 @@ class ExpensesFragment :
             accountName.setOnClickListener {
                 initAccountListBottomSheet()
             }
+            keyboard.onSubmit = {
+                saveRecord()
+                Toast.makeText(requireContext(), "Record has been saved.", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -77,5 +84,19 @@ class ExpensesFragment :
                 this.selectedAccount = account
             }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun saveRecord(){
+        val record = Record(
+            RecordType.EXPENSES,
+            binding.keyboard.getBinding().noteEditText.text.toString(),
+            selectedAccount,
+            binding.keyboard.getResult(),
+            selectedCategory,
+            binding.keyboard.dateMillis
+        )
+        viewModel.postEvent(
+            ExpensesEvent.AddExpense(record)
+        )
     }
 }

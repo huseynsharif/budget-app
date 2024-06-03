@@ -13,12 +13,12 @@ class AccountConverter {
     private val gson = Gson()
 
     @TypeConverter
-    fun fromAccount(value: Account): String{
+    fun fromAccount(value: Account?): String{
         return gson.toJson(value)
     }
 
     @TypeConverter
-    fun toAccount(value: String): Account {
+    fun toAccount(value: String): Account? {
         return gson.fromJson(value, Account::class.java)
     }
 

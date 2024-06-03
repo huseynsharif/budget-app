@@ -42,7 +42,6 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
         binding.btnSave.setOnClickListener {
             saveAccount()
         }
-
     }
 
     private fun saveAccount() {

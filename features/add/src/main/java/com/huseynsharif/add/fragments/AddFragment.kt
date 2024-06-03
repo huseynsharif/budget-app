@@ -30,7 +30,6 @@ class AddFragment :
 
     override fun getViewModelClass() = AddViewModel::class.java
 
-    lateinit var record: Record
     var currentTab = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

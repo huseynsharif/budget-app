@@ -17,6 +17,7 @@ data class Record(
     val amount: Double,
     @ColumnInfo(name = "category")
     val category: Category,
+    val createdAt:Long,
     @ColumnInfo(name = "amount_to")
     val amountTo: Double? = null,
     @ColumnInfo(name = "account_to")

@@ -15,7 +15,7 @@ data class Account (
     @ColumnInfo(name="amount")
     val amount:Double,
     @ColumnInfo(name="amount_usd")
-    val amountUsd:Double,
+    val amountUsd:Double?=null,
     @ColumnInfo("account_id")
     @PrimaryKey(autoGenerate = true)
     val id:Long = 0

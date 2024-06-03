@@ -15,21 +15,25 @@ class AccountsAdapter(
     private val context: Context,
     private val selectedAccount: String,
     private val getPinned: (Account) -> Unit,
-    private val closeBottomSheet : ()->Unit
-): ListAdapter<Account, AccountsAdapter.AccountsViewHolder>(AccountsAdapter.AccountDiffCheck()) {
+    private val closeBottomSheet: () -> Unit
+) : ListAdapter<Account, AccountsAdapter.AccountsViewHolder>(AccountsAdapter.AccountDiffCheck()) {
 
     inner class AccountsViewHolder(
         private val binding: CardAccountBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bindData(account: Account){
+        fun bindData(account: Account) {
             binding.apply {
 
                 binding.accountTitle.text = account.name
                 binding.currency.text = account.currency
                 binding.balance.text = account.amount.toString()
-                binding.accountIcon.setImageResource(getResourceIdByName(context, account.type.name))
+                binding.accountIcon.setImageResource(
+                    getResourceIdByName(
+                        context, account.type.name
+                    )
+                )
 
-                if (selectedAccount==account.name){
+                if (selectedAccount == account.name) {
                     binding.root.setBackgroundResource(com.huseynsharif.uikit.R.drawable.selected_account_background)
                 }
                 binding.root.setOnClickListener {
@@ -40,7 +44,7 @@ class AccountsAdapter(
         }
     }
 
-    private class AccountDiffCheck : DiffUtil.ItemCallback<Account>(){
+    private class AccountDiffCheck : DiffUtil.ItemCallback<Account>() {
         override fun areItemsTheSame(oldItem: Account, newItem: Account): Boolean {
             return oldItem == newItem
         }
@@ -59,7 +63,6 @@ class AccountsAdapter(
         val item = getItem(position)
         holder.bindData(item)
     }
-
 
 
 }

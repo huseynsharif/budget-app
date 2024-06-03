@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class BottomSheetFragment(
     private val recordType: RecordType,
-    private val selectedCategory:String,
+    private val selectedCategory: String,
     private val getPinned: (String) -> Unit
 ) : BottomSheetDialogFragment() {
 
@@ -37,11 +37,11 @@ class BottomSheetFragment(
 
         initAdapter()
         getIcons()
+
     }
 
 
     private fun getIcons() {
-
         val array = when (recordType) {
             RecordType.EXPENSES -> resources.getStringArray(com.huseynsharif.common.R.array.expense_icons_list)
             RecordType.INCOME -> resources.getStringArray(com.huseynsharif.common.R.array.income_icons_list)
@@ -51,12 +51,11 @@ class BottomSheetFragment(
         for (a in array) {
             icons.add(Category(a, a, recordType))
         }
-
         adapter.submitList(icons)
     }
 
     private fun initAdapter() {
-        adapter = IconsAdapter(requireContext(),selectedCategory,  getPinned){
+        adapter = IconsAdapter(requireContext(), selectedCategory, getPinned) {
             this.dismiss()
         }
         val layoutManager = GridLayoutManager(requireContext(), 4)

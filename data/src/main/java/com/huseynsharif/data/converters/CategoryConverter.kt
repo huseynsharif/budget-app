@@ -10,12 +10,12 @@ class CategoryConverter {
 
 
     @TypeConverter
-    fun fromCategory(value: Category): String{
+    fun fromCategory(value: Category?): String{
         return gson.toJson(value)
     }
 
     @TypeConverter
-    fun toCategory(value:String): Category {
+    fun toCategory(value:String?): Category {
         return gson.fromJson(value, Category::class.java)
     }
 

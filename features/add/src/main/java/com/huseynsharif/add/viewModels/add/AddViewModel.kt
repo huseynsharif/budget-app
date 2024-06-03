@@ -6,15 +6,15 @@ import com.huseynsharif.domain.entities.Record
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
+//@HiltViewModel
 class AddViewModel : BaseViewModel<AddState, AddEffect, AddEvent>() {
     override fun getInitialState() = AddState(isLoading = false)
 
-    @Inject
-    private lateinit var recordDao: RecordDao
+//    @Inject
+//    private lateinit var recordDao: RecordDao
 
-    fun saveRecord(record: Record){
-        this.recordDao.insert(record)
-    }
+//    fun saveRecord(record: Record){
+//        this.recordDao.insert(record)
+//    }
 
 }
