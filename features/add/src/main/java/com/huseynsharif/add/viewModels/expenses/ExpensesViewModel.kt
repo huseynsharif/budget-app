@@ -2,6 +2,7 @@ package com.huseynsharif.add.viewModels.expenses
 
 import androidx.lifecycle.viewModelScope
 import com.huseynsharif.core.base.BaseViewModel
+import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.RecordDao
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
@@ -26,11 +27,14 @@ class ExpensesViewModel @Inject constructor(
 
         when (event) {
             is ExpensesEvent.AddExpense -> saveRecord(event.record)
+            is ExpensesEvent.SetSelectedAccount -> setSelectedAccount(event.account)
+            is ExpensesEvent.SetSelectedCategory -> setSelectedCategory(event.category)
         }
     }
 
     private fun saveRecord(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
+            record.amountUsd = getCurrency(record.account.currency, "USD")
             recordDao.insert(record)
         }
     }
@@ -58,4 +62,6 @@ class ExpensesViewModel @Inject constructor(
             )
         )
     }
+
+
 }

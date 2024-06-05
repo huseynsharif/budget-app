@@ -1,7 +1,9 @@
 package com.huseynsharif.add.viewModels.income
 
 import androidx.lifecycle.viewModelScope
+import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
 import com.huseynsharif.core.base.BaseViewModel
+import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.RecordDao
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
@@ -13,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class IncomeViewModel @Inject constructor(
-    private val recordDao: RecordDao
+    private val recordDao: RecordDao, private val currencyService: CurrencyService
 ) : BaseViewModel<IncomeState, IncomeEffect, IncomeEvent>() {
     override fun getInitialState() = IncomeState(isLoading = false)
 
@@ -23,14 +25,16 @@ class IncomeViewModel @Inject constructor(
 
     override fun onEventUpdate(event: IncomeEvent) {
         super.onEventUpdate(event)
-
         when (event) {
             is IncomeEvent.AddIncome -> saveRecord(event.record)
+            is IncomeEvent.SetSelectedAccount -> setSelectedAccount(event.account)
+            is IncomeEvent.SetSelectedCategory -> setSelectedCategory(event.category)
         }
     }
 
     private fun saveRecord(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
+            record.amountUsd = exchange(record.account.currency, "USD")
             recordDao.insert(record)
         }
     }
@@ -57,6 +61,14 @@ class IncomeViewModel @Inject constructor(
                 selectedAccount = account
             )
         )
+    }
+
+    private suspend fun exchange(from: String, to: String): Double {
+        var result = 0.0
+        viewModelScope.launch {
+            result = currencyService.exchange("USD", "AZN")
+        }.join()
+        return result
     }
 
 }

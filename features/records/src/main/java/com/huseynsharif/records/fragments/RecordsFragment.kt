@@ -20,7 +20,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class RecordsFragment : BaseFragment<FragmentRecordsBinding, RecordsViewModel, RecordsState, RecordsEffect, RecordsEvent>() {
+class RecordsFragment :
+    BaseFragment<FragmentRecordsBinding, RecordsViewModel, RecordsState, RecordsEffect, RecordsEvent>() {
     override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentRecordsBinding =
         { inflater, viewGroup, value ->
             FragmentRecordsBinding.inflate(inflater, viewGroup, value)
@@ -32,31 +33,28 @@ class RecordsFragment : BaseFragment<FragmentRecordsBinding, RecordsViewModel, R
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initAdapter()
         getAllNotes()
         showReports()
-        viewModel.testExchange()
+
     }
 
     private fun showReports() {
 
-        lifecycleScope.launch(Dispatchers.IO){
+        lifecycleScope.launch(Dispatchers.IO) {
             viewModel.findSumOfExpenses().collect {
                 binding.expenses.text = it.toString()
             }
-             viewModel.findSumOfIncome().collect{
-                 binding.income.text = it.toString()
-             }
+            viewModel.findSumOfIncome().collect {
+                binding.income.text = it.toString()
+            }
         }
 
 
     }
 
     private fun initAdapter() {
-
         adapter = RecordsAdapter(requireContext())
-
         binding.savedRecords.adapter = adapter
     }
 
@@ -64,10 +62,9 @@ class RecordsFragment : BaseFragment<FragmentRecordsBinding, RecordsViewModel, R
         val savedRecords = viewModel.getAllRecords()
         lifecycleScope.launch {
             savedRecords.collect { list ->
-                if (list.isNotEmpty()){
+                if (list.isNotEmpty()) {
                     adapter.submitList(list.reversed())
-                }
-                else{
+                } else {
                     binding.noRecordsIcon.visibility = View.VISIBLE
                     binding.noRecordsText.visibility = View.VISIBLE
                 }

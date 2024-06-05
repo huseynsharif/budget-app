@@ -82,7 +82,7 @@ class ExpensesFragment :
                 )
             )
             binding.categoryName.text = iconName
-            viewModel.setSelectedCategory(Category(iconName, iconName, RecordType.EXPENSES))
+            postEvent(ExpensesEvent.SetSelectedCategory(Category(iconName, iconName, RecordType.EXPENSES)))
         }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
@@ -96,7 +96,7 @@ class ExpensesFragment :
                     )
                 )
                 binding.accountName.text = account.name
-                viewModel.setSelectedAccount(account)
+                postEvent(ExpensesEvent.SetSelectedAccount(account))
             }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }

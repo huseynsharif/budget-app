@@ -2,7 +2,9 @@ package com.huseynsharif.core.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.domain.entities.remote.ResultWrapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,9 +14,13 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.reflect.KSuspendFunction0
 
-abstract class BaseViewModel<State, Effect, Event> : ViewModel(){
+@HiltViewModel
+abstract class BaseViewModel<State, Effect, Event> @Inject constructor(
+    private val currencyService: CurrencyService?=null
+) : ViewModel(){
 
     private val viewState: State by lazy { getInitialState() }
 
@@ -28,6 +34,7 @@ abstract class BaseViewModel<State, Effect, Event> : ViewModel(){
 
     private val _effect = Channel<Effect>()
     val effect = _effect.receiveAsFlow()
+
 
     protected fun setState(state: State) {
         viewModelScope.launch {
@@ -88,5 +95,13 @@ abstract class BaseViewModel<State, Effect, Event> : ViewModel(){
         } catch (e: Exception) {
             ResultWrapper.Error(e)
         }
+    }
+
+    suspend fun getCurrency(from: String, to: String): Double {
+        var result = 0.0
+        viewModelScope.launch {
+            result = currencyService?.exchange(from, to)!!
+        }.join()
+        return result
     }
 }

@@ -23,7 +23,7 @@ data class Record(
     @ColumnInfo(name = "account_to")
     val accountTo: Account? = null,
     @ColumnInfo(name = "amount_usd")
-    val amountUsd: Double?=null,
+    var amountUsd: Double?=null,
     @ColumnInfo("record_id")
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0
