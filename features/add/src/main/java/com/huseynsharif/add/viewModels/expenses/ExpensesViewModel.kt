@@ -14,8 +14,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(
-    private val recordDao: RecordDao
-) : BaseViewModel<ExpensesState, ExpensesEffect, ExpensesEvent>() {
+    private val recordDao: RecordDao,
+    private val currencyService: CurrencyService
+) : BaseViewModel<ExpensesState, ExpensesEffect, ExpensesEvent>(currencyService) {
     override fun getInitialState() = ExpensesState(isLoading = false)
 
     init {
@@ -34,7 +35,7 @@ class ExpensesViewModel @Inject constructor(
 
     private fun saveRecord(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
-            record.amountUsd = getCurrency(record.account.currency, "USD")
+            record.amountUsd = exchange(record.account.currency, "USD", record.amount)
             recordDao.insert(record)
         }
     }
@@ -47,7 +48,7 @@ class ExpensesViewModel @Inject constructor(
         return state.value.selectedCategory
     }
 
-    fun setSelectedCategory(category: Category) {
+    private fun setSelectedCategory(category: Category) {
         setState(
             getCurrentState().copy(
                 selectedCategory = category
@@ -55,7 +56,7 @@ class ExpensesViewModel @Inject constructor(
         )
     }
 
-    fun setSelectedAccount(account: Account) {
+    private fun setSelectedAccount(account: Account) {
         setState(
             getCurrentState().copy(
                 selectedAccount = account

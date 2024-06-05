@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RecordsViewModel @Inject constructor(
-    private val recordDao: RecordDao, private val currencyService: CurrencyService
+    private val recordDao: RecordDao
 ) : BaseViewModel<RecordsState, RecordsEffect, RecordsEvent>() {
     override fun getInitialState() = RecordsState(isLoading = false)
 
@@ -53,14 +53,6 @@ class RecordsViewModel @Inject constructor(
             }
         }
         return recordsFlow
-    }
-
-    suspend fun exchange(from: String, to: String): Double {
-        var result = 0.0
-        viewModelScope.launch {
-            result = currencyService.exchange("USD", "AZN")
-        }.join()
-        return result
     }
 
 }

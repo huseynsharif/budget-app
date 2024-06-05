@@ -1,20 +1,28 @@
 package com.huseynsharif.add.fragments
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
+
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.huseynsharif.add.R
+import com.huseynsharif.add.databinding.FragmentTransferBinding
+import com.huseynsharif.add.viewModels.transfer.TransferEffect
+import com.huseynsharif.add.viewModels.transfer.TransferEvent
+import com.huseynsharif.add.viewModels.transfer.TransferState
+import com.huseynsharif.add.viewModels.transfer.TransferViewModel
+import com.huseynsharif.core.base.BaseFragment
 
 
-class TransferFragment : Fragment() {
+class TransferFragment :
+    BaseFragment<FragmentTransferBinding, TransferViewModel, TransferState, TransferEffect, TransferEvent>() {
+    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentTransferBinding =
+        { inflater, viewGroup, value ->
+            FragmentTransferBinding.inflate(inflater, viewGroup, value)
+        }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_transfer, container, false)
-    }
+
+    override fun getViewModelClass() = TransferViewModel::class.java
+
+
+
+
 
 }

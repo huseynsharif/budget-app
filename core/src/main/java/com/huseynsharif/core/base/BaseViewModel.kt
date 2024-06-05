@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.domain.entities.remote.ResultWrapper
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,17 +13,15 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 import kotlin.reflect.KSuspendFunction0
 
-@HiltViewModel
-abstract class BaseViewModel<State, Effect, Event> @Inject constructor(
+abstract class BaseViewModel<State, Effect, Event> (
     private val currencyService: CurrencyService?=null
-) : ViewModel(){
+) : ViewModel() {
 
     private val viewState: State by lazy { getInitialState() }
 
-    abstract fun getInitialState() :State
+    abstract fun getInitialState(): State
 
     private val _state = MutableStateFlow(viewState)
     val state: StateFlow<State> = _state
@@ -67,7 +64,7 @@ abstract class BaseViewModel<State, Effect, Event> @Inject constructor(
 
     suspend fun <T> invoke(
         kSuspendFunction0: KSuspendFunction0<T>,
-        onError: ((e: Exception) -> Unit)?= null,
+        onError: ((e: Exception) -> Unit)? = null,
         onSuccess: (T) -> Unit
     ) {
 
@@ -76,6 +73,7 @@ abstract class BaseViewModel<State, Effect, Event> @Inject constructor(
                 onError?.invoke(result.exception)
                 onErrorHandled(result.exception)
             }
+
             is ResultWrapper.Success<*> -> {
 
                 onSuccess(result.value as T)
@@ -97,11 +95,12 @@ abstract class BaseViewModel<State, Effect, Event> @Inject constructor(
         }
     }
 
-    suspend fun getCurrency(from: String, to: String): Double {
+    suspend fun exchange(from: String, to: String, amount: Double): Double {
         var result = 0.0
         viewModelScope.launch {
-            result = currencyService?.exchange(from, to)!!
+            result = currencyService?.exchange(from, to)!! * amount
         }.join()
         return result
     }
+
 }

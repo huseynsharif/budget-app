@@ -15,8 +15,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class IncomeViewModel @Inject constructor(
-    private val recordDao: RecordDao, private val currencyService: CurrencyService
-) : BaseViewModel<IncomeState, IncomeEffect, IncomeEvent>() {
+    private val recordDao: RecordDao,
+    private val currencyService: CurrencyService
+) : BaseViewModel<IncomeState, IncomeEffect, IncomeEvent>(currencyService) {
     override fun getInitialState() = IncomeState(isLoading = false)
 
     init {
@@ -34,7 +35,7 @@ class IncomeViewModel @Inject constructor(
 
     private fun saveRecord(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
-            record.amountUsd = exchange(record.account.currency, "USD")
+            record.amountUsd = exchange(record.account.currency, "USD", record.amount)
             recordDao.insert(record)
         }
     }
@@ -63,12 +64,6 @@ class IncomeViewModel @Inject constructor(
         )
     }
 
-    private suspend fun exchange(from: String, to: String): Double {
-        var result = 0.0
-        viewModelScope.launch {
-            result = currencyService.exchange("USD", "AZN")
-        }.join()
-        return result
-    }
+
 
 }
