@@ -1,4 +1,4 @@
-package com.huseynsharif.add.viewModels.expenses
+package com.huseynsharif.add.viewModels.income
 
 import androidx.lifecycle.viewModelScope
 import com.huseynsharif.core.base.BaseViewModel
@@ -12,20 +12,20 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ExpensesViewModel @Inject constructor(
+class IncomeViewModel @Inject constructor(
     private val recordDao: RecordDao
-) : BaseViewModel<ExpensesState, ExpensesEffect, ExpensesEvent>() {
-    override fun getInitialState() = ExpensesState(isLoading = false)
+) : BaseViewModel<IncomeState, IncomeEffect, IncomeEvent>() {
+    override fun getInitialState() = IncomeState(isLoading = false)
 
     init {
         initEventSubscribers()
     }
 
-    override fun onEventUpdate(event: ExpensesEvent) {
+    override fun onEventUpdate(event: IncomeEvent) {
         super.onEventUpdate(event)
 
         when (event) {
-            is ExpensesEvent.AddExpense -> saveRecord(event.record)
+            is IncomeEvent.AddIncome -> saveRecord(event.record)
         }
     }
 
@@ -58,4 +58,5 @@ class ExpensesViewModel @Inject constructor(
             )
         )
     }
+
 }

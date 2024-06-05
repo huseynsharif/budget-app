@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.huseynsharif.add.R
 import com.huseynsharif.add.databinding.FragmentExpensesBinding
 import com.huseynsharif.add.viewModels.expenses.ExpensesEffect
 import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
@@ -15,13 +12,11 @@ import com.huseynsharif.add.viewModels.expenses.ExpensesState
 import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.core.base.BaseFragment
-import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
 import com.huseynsharif.domain.entities.Record
 import com.huseynsharif.domain.entities.RecordType
 import com.huseynsharif.uikit.AccountListBottomSheet
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ExpensesFragment :
@@ -31,8 +26,6 @@ class ExpensesFragment :
             FragmentExpensesBinding.inflate(inflater, viewGroup, value)
         }
 
-    private var selectedAccount: Account? = null
-    private var selectedCategory: Category? = null
 
     override fun getViewModelClass() = ExpensesViewModel::class.java
 
@@ -60,12 +53,10 @@ class ExpensesFragment :
                 }
             }
         }
-
-        getInitialFields()
     }
 
     private fun checkFields(): Boolean {
-        return if (selectedAccount == null) {
+        return if (viewModel.getSelectedAccount()==null) {
             Toast.makeText(requireContext(), "You have to select an account.", Toast.LENGTH_LONG)
                 .show()
             false
@@ -80,11 +71,6 @@ class ExpensesFragment :
         }
     }
 
-    private fun getInitialFields() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            selectedCategory = viewModel.getCategoryCar()
-        }
-    }
 
     private fun initCategoryBottomSheet() {
         val bottomSheetFragment = BottomSheetFragment(
@@ -96,7 +82,7 @@ class ExpensesFragment :
                 )
             )
             binding.categoryName.text = iconName
-            this.selectedCategory = Category(iconName, iconName, RecordType.EXPENSES)
+            viewModel.setSelectedCategory(Category(iconName, iconName, RecordType.EXPENSES))
         }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
@@ -110,7 +96,7 @@ class ExpensesFragment :
                     )
                 )
                 binding.accountName.text = account.name
-                this.selectedAccount = account
+                viewModel.setSelectedAccount(account)
             }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
@@ -118,9 +104,9 @@ class ExpensesFragment :
     private fun saveRecord() {
         val record = Record(
             RecordType.EXPENSES,
-            selectedAccount!!,
+            viewModel.getSelectedAccount()!!,
             binding.keyboard.getResult(),
-            selectedCategory!!,
+            viewModel.getSelectedCategory()!!,
             binding.keyboard.dateMillis,
             binding.keyboard.getBinding().noteEditText.text?.toString()
         )

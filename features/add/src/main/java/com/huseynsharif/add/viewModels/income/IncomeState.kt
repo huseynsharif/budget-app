@@ -1,11 +1,13 @@
-package com.huseynsharif.add.viewModels.expenses
+package com.huseynsharif.add.viewModels.income
 
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
 import com.huseynsharif.domain.entities.RecordType
 
-data class ExpensesState(
+data class IncomeState(
+
     val isLoading: Boolean?=false,
-    var selectedCategory: Category?= Category("car", "car", RecordType.EXPENSES),
+    var selectedCategory: Category?= Category("salary", "salary", RecordType.INCOME),
     var selectedAccount: Account?=null
+
 )

@@ -15,10 +15,14 @@
         <item>sport</item>
         <item>telephone</item>
         <item>travel</item>
+        <item>other</item>
     </string-array>
 
     <string-array name="income_icons_list">
-
+        <item>salary</item>
+        <item>investments</item>
+        <item>awards</item>
+        <item>other</item>
     </string-array>
 
     <string-array name="account_type_icons_list">

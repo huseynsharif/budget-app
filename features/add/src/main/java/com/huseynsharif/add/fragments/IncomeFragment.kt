@@ -5,16 +5,119 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.huseynsharif.add.R
+import com.huseynsharif.add.databinding.FragmentExpensesBinding
+import com.huseynsharif.add.databinding.FragmentIncomeBinding
+import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
+import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
+import com.huseynsharif.add.viewModels.income.IncomeEffect
+import com.huseynsharif.add.viewModels.income.IncomeEvent
+import com.huseynsharif.add.viewModels.income.IncomeState
+import com.huseynsharif.add.viewModels.income.IncomeViewModel
+import com.huseynsharif.common.getResourceIdByName
+import com.huseynsharif.core.base.BaseFragment
+import com.huseynsharif.domain.entities.Category
+import com.huseynsharif.domain.entities.Record
+import com.huseynsharif.domain.entities.RecordType
+import com.huseynsharif.uikit.AccountListBottomSheet
+import dagger.hilt.android.AndroidEntryPoint
 
-class IncomeFragment : Fragment() {
+@AndroidEntryPoint
+class IncomeFragment :
+    BaseFragment<FragmentIncomeBinding, IncomeViewModel, IncomeState, IncomeEffect, IncomeEvent>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_income, container, false)
+    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentIncomeBinding =
+        { inflater, viewGroup, value ->
+            FragmentIncomeBinding.inflate(inflater, viewGroup, value)
+        }
+
+    override fun getViewModelClass() = IncomeViewModel::class.java
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.apply {
+            categoryIcon.setOnClickListener {
+                initCategoryBottomSheet()
+            }
+            categoryName.setOnClickListener {
+                initCategoryBottomSheet()
+            }
+            accountIcon.setOnClickListener {
+                initAccountListBottomSheet()
+            }
+            accountName.setOnClickListener {
+                initAccountListBottomSheet()
+            }
+            keyboard.onSubmit = {
+                if (checkFields()) {
+                    saveRecord()
+                    Toast.makeText(requireContext(), "Record has been saved.", Toast.LENGTH_LONG)
+                        .show()
+                }
+            }
+        }
     }
 
+    private fun checkFields(): Boolean {
+        return if (viewModel.getSelectedAccount()==null) {
+            Toast.makeText(requireContext(), "You have to select an account.", Toast.LENGTH_LONG)
+                .show()
+            false
+        }
+        else if(binding.keyboard.getBinding().input.text.isEmpty()){
+            Toast.makeText(requireContext(), "You have to enter the amount.", Toast.LENGTH_LONG)
+                .show()
+            false
+        }
+        else {
+            true
+        }
+    }
+
+    private fun initCategoryBottomSheet() {
+        val bottomSheetFragment = BottomSheetFragment(
+            RecordType.INCOME, binding.categoryName.text.toString()
+        ) { iconName ->
+            binding.categoryIcon.setImageResource(
+                getResourceIdByName(
+                    requireContext(), iconName
+                )
+            )
+            binding.categoryName.text = iconName
+            viewModel.setSelectedCategory(Category(iconName, iconName, RecordType.EXPENSES))
+        }
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun initAccountListBottomSheet() {
+        val bottomSheetFragment =
+            AccountListBottomSheet(binding.accountName.text.toString()) { account ->
+                binding.accountIcon.setImageResource(
+                    getResourceIdByName(
+                        requireContext(), account.type.name.lowercase()
+                    )
+                )
+                binding.accountName.text = account.name
+                viewModel.setSelectedAccount(account)
+            }
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun saveRecord() {
+        val record = Record(
+            RecordType.INCOME,
+            viewModel.getSelectedAccount()!!,
+            binding.keyboard.getResult(),
+            viewModel.getSelectedCategory()!!,
+            binding.keyboard.dateMillis,
+            binding.keyboard.getBinding().noteEditText.text?.toString()
+        )
+        viewModel.postEvent(
+            IncomeEvent.AddIncome(record)
+        )
+    }
 
 }
+

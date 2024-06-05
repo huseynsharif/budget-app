@@ -14,6 +14,7 @@ import com.huseynsharif.records.viewModels.RecordsState
 import com.huseynsharif.records.viewModels.RecordsViewModel
 import com.huseynsharif.uikit.adapter.RecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,7 +26,7 @@ class RecordsFragment : BaseFragment<FragmentRecordsBinding, RecordsViewModel, R
             FragmentRecordsBinding.inflate(inflater, viewGroup, value)
         }
 
-    lateinit var adapter: RecordsAdapter
+    private lateinit var adapter: RecordsAdapter
 
     override fun getViewModelClass() = RecordsViewModel::class.java
 
@@ -33,8 +34,23 @@ class RecordsFragment : BaseFragment<FragmentRecordsBinding, RecordsViewModel, R
         super.onViewCreated(view, savedInstanceState)
 
         initAdapter()
-
         getAllNotes()
+        showReports()
+        viewModel.testExchange()
+    }
+
+    private fun showReports() {
+
+        lifecycleScope.launch(Dispatchers.IO){
+            viewModel.findSumOfExpenses().collect {
+                binding.expenses.text = it.toString()
+            }
+             viewModel.findSumOfIncome().collect{
+                 binding.income.text = it.toString()
+             }
+        }
+
+
     }
 
     private fun initAdapter() {
@@ -46,11 +62,10 @@ class RecordsFragment : BaseFragment<FragmentRecordsBinding, RecordsViewModel, R
 
     private fun getAllNotes() {
         val savedRecords = viewModel.getAllRecords()
-
         lifecycleScope.launch {
             savedRecords.collect { list ->
                 if (list.isNotEmpty()){
-                    adapter.submitList(list)
+                    adapter.submitList(list.reversed())
                 }
                 else{
                     binding.noRecordsIcon.visibility = View.VISIBLE
