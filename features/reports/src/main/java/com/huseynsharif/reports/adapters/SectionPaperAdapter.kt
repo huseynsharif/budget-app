@@ -2,7 +2,7 @@ package com.huseynsharif.reports.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.huseynsharif.reports.fragments.AccountFragment
+import com.huseynsharif.reports.fragments.AccountsFragment
 import com.huseynsharif.reports.fragments.AnalyticsFragment
 
 class SectionPaperAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
@@ -13,7 +13,7 @@ class SectionPaperAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> AnalyticsFragment()
-            1 -> AccountFragment()
+            1 -> AccountsFragment()
             else -> throw IllegalStateException("Invalid position: $position")
         }
     }

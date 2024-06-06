@@ -7,18 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import com.huseynsharif.core.base.BaseFragment
 import com.huseynsharif.reports.R
+import com.huseynsharif.reports.databinding.FragmentAccountBinding
 import com.huseynsharif.reports.databinding.FragmentAnalyticsBinding
-import com.huseynsharif.reports.databinding.FragmentReportsBinding
 import com.huseynsharif.reports.viewModels.accounts.AccountsEffect
 import com.huseynsharif.reports.viewModels.accounts.AccountsEvent
 import com.huseynsharif.reports.viewModels.accounts.AccountsState
 import com.huseynsharif.reports.viewModels.accounts.AccountsViewModel
 
 
-class AnalyticsFragment : BaseFragment<FragmentAnalyticsBinding, AccountsViewModel, AccountsState, AccountsEffect, AccountsEvent>() {
-    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAnalyticsBinding
+class AccountsFragment : BaseFragment<FragmentAccountBinding, AccountsViewModel, AccountsState, AccountsEffect, AccountsEvent>() {
+    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentAccountBinding
             = { inflater, viewGroup, value ->
-        FragmentAnalyticsBinding.inflate(inflater, viewGroup, value)
+        FragmentAccountBinding.inflate(inflater, viewGroup, value)
     }
 
     override fun getViewModelClass() = AccountsViewModel::class.java

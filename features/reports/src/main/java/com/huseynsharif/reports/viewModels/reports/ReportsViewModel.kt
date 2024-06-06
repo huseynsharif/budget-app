@@ -1,21 +1,19 @@
-package com.huseynsharif.records.viewModels
+package com.huseynsharif.reports.viewModels.reports
 
 import com.huseynsharif.core.base.BaseViewModel
+import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.RecordDao
-import com.huseynsharif.domain.entities.Record
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 @HiltViewModel
-class RecordsViewModel @Inject constructor(
-    private val recordDao: RecordDao
-) : BaseViewModel<RecordsState, RecordsEffect, RecordsEvent>() {
-    override fun getInitialState() = RecordsState(isLoading = false)
+class ReportsViewModel @Inject constructor(
+    private val recordDao: RecordDao,
+    currencyService: CurrencyService
+) : BaseViewModel<ReportsState, ReportsEffect, ReportsEvent>(currencyService) {
+    override fun getInitialState() = ReportsState(isLoading = false)
 
-    fun getAllRecords(): Flow<List<Record>> {
-        return recordDao.getAll()
-    }
 
     fun findSumOfExpenses(): Flow<Double> {
         return recordDao.getSumOfExpenses()
@@ -24,4 +22,5 @@ class RecordsViewModel @Inject constructor(
     fun findSumOfIncome(): Flow<Double> {
         return recordDao.getSumOfIncomes()
     }
+
 }

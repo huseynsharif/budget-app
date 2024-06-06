@@ -87,8 +87,8 @@ class CustomKeyboard @JvmOverloads constructor(
             }
 
             btnSubmit.setOnClickListener {
-                binding.noteEditText.text.clear()
                 onSubmit.invoke()
+                binding.noteEditText.text.clear()
                 inputList.clear()
                 renderInput()
             }

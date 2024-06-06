@@ -10,12 +10,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.huseynsharif.core.base.BaseFragment
 import com.huseynsharif.reports.adapters.SectionPaperAdapter
 import com.huseynsharif.reports.databinding.FragmentReportsBinding
-import com.huseynsharif.reports.viewModels.ReportsEffect
-import com.huseynsharif.reports.viewModels.ReportsEvent
-import com.huseynsharif.reports.viewModels.ReportsState
-import com.huseynsharif.reports.viewModels.ReportsViewModel
+import com.huseynsharif.reports.viewModels.reports.ReportsEffect
+import com.huseynsharif.reports.viewModels.reports.ReportsEvent
+import com.huseynsharif.reports.viewModels.reports.ReportsState
+import com.huseynsharif.reports.viewModels.reports.ReportsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ReportsFragment : BaseFragment<FragmentReportsBinding, ReportsViewModel, ReportsState, ReportsEffect, ReportsEvent>() {
     override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentReportsBinding
             = { inflater, viewGroup, value ->
@@ -27,6 +28,15 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding, ReportsViewModel, R
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initTabLayout()
+        showReports()
+    }
+
+    private fun showReports() {
+
+    }
+
+    private fun initTabLayout() {
         val viewPager: ViewPager2 = binding.viewPager
         val tabLayout: TabLayout = binding.tabLayout
 
@@ -41,5 +51,6 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding, ReportsViewModel, R
             }
         }.attach()
     }
+
 
 }

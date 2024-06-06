@@ -1,6 +1,5 @@
 package com.huseynsharif.records.fragments
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,10 +13,9 @@ import com.huseynsharif.records.viewModels.RecordsState
 import com.huseynsharif.records.viewModels.RecordsViewModel
 import com.huseynsharif.uikit.adapter.RecordsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import javax.inject.Inject
+import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class RecordsFragment :
@@ -40,18 +38,22 @@ class RecordsFragment :
     }
 
     private fun showReports() {
+        lifecycleScope.launch {
+            val decimalFormat = DecimalFormat("#.##")
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.findSumOfExpenses().collect {
-                binding.expenses.text = it.toString()
-            }
-            viewModel.findSumOfIncome().collect {
-                binding.income.text = it.toString()
-            }
+            viewModel.findSumOfExpenses()
+                .combine(viewModel.findSumOfIncome()) { expenses, income ->
+                    Pair(expenses, income)
+                }
+                .collect { (expenses, income) ->
+                    binding.expenses.text = decimalFormat.format(expenses)
+                    binding.income.text = decimalFormat.format(income)
+                    binding.balance.text = decimalFormat.format(income-expenses)
+                }
         }
-
-
     }
+
+
 
     private fun initAdapter() {
         adapter = RecordsAdapter(requireContext())

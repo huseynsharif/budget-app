@@ -32,12 +32,12 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel<State, Effect, 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).onEach {
-                onStateUpdate(it)
-            }.launchIn(lifecycleScope)
+            onStateUpdate(it)
+        }.launchIn(lifecycleScope)
 
         viewModel.effect.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED).onEach {
-                onEffectUpdate(it)
-            }.launchIn(lifecycleScope)
+            onEffectUpdate(it)
+        }.launchIn(lifecycleScope)
     }
 
     abstract fun getViewModelClass(): Class<VM>

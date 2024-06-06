@@ -49,7 +49,6 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
             binding.accountName.text.toString(),
             AccountType.valueOf(binding.accountType.selectedItem.toString().uppercase()),
             binding.currency.selectedItem.toString(),
-            binding.amount.text.toString().toDouble(),
             binding.amount.text.toString().toDouble()
         )
 

@@ -4,4 +4,7 @@
     <string name="add_record">Add Record</string>
     <string name="_30">30</string>
     <string name="salary">salary</string>
+    <string name="from">from</string>
+    <string name="no_account">No Account</string>
+    <string name="to">to</string>
 </resources>

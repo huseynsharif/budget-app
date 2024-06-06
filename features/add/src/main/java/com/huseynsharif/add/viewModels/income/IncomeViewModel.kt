@@ -2,6 +2,7 @@ package com.huseynsharif.add.viewModels.income
 
 import androidx.lifecycle.viewModelScope
 import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
+import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.core.base.BaseViewModel
 import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.RecordDao
@@ -35,7 +36,11 @@ class IncomeViewModel @Inject constructor(
 
     private fun saveRecord(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
-            record.amountUsd = exchange(record.account.currency, "USD", record.amount)
+            record.amountUsd = if (record.account.currency == ExpensesViewModel.USD) {
+                record.amount
+            } else {
+                exchange(record.account.currency, ExpensesViewModel.USD, record.amount)
+            }
             recordDao.insert(record)
         }
     }
@@ -64,6 +69,8 @@ class IncomeViewModel @Inject constructor(
         )
     }
 
-
+    companion object{
+        const val USD = "USD"
+    }
 
 }

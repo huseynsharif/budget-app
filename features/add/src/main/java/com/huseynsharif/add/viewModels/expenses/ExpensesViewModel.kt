@@ -3,6 +3,7 @@ package com.huseynsharif.add.viewModels.expenses
 import androidx.lifecycle.viewModelScope
 import com.huseynsharif.core.base.BaseViewModel
 import com.huseynsharif.data.api.CurrencyService
+import com.huseynsharif.data.database.dao.AccountDao
 import com.huseynsharif.data.database.dao.RecordDao
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(
     private val recordDao: RecordDao,
-    private val currencyService: CurrencyService
+    private val accountDao: AccountDao,
+    currencyService: CurrencyService
 ) : BaseViewModel<ExpensesState, ExpensesEffect, ExpensesEvent>(currencyService) {
     override fun getInitialState() = ExpensesState(isLoading = false)
 
@@ -35,7 +37,15 @@ class ExpensesViewModel @Inject constructor(
 
     private fun saveRecord(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
-            record.amountUsd = exchange(record.account.currency, "USD", record.amount)
+            record.amountUsd = if (record.account.currency == USD) {
+                record.amount
+            } else {
+                exchange(record.account.currency, USD, record.amount)
+            }
+
+            val account = record.account
+            account.amount -= record.amount
+            accountDao.update(account)
             recordDao.insert(record)
         }
     }
@@ -64,5 +74,7 @@ class ExpensesViewModel @Inject constructor(
         )
     }
 
-
+    companion object {
+        const val USD = "USD"
+    }
 }
