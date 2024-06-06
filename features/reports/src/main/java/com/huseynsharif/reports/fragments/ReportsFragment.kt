@@ -17,11 +17,12 @@ import com.huseynsharif.reports.viewModels.reports.ReportsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ReportsFragment : BaseFragment<FragmentReportsBinding, ReportsViewModel, ReportsState, ReportsEffect, ReportsEvent>() {
-    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentReportsBinding
-            = { inflater, viewGroup, value ->
-        FragmentReportsBinding.inflate(inflater, viewGroup, value)
-    }
+class ReportsFragment :
+    BaseFragment<FragmentReportsBinding, ReportsViewModel, ReportsState, ReportsEffect, ReportsEvent>() {
+    override val getViewBinding: (LayoutInflater, ViewGroup?, Boolean) -> FragmentReportsBinding =
+        { inflater, viewGroup, value ->
+            FragmentReportsBinding.inflate(inflater, viewGroup, value)
+        }
 
     override fun getViewModelClass() = ReportsViewModel::class.java
 
@@ -29,11 +30,6 @@ class ReportsFragment : BaseFragment<FragmentReportsBinding, ReportsViewModel, R
         super.onViewCreated(view, savedInstanceState)
 
         initTabLayout()
-        showReports()
-    }
-
-    private fun showReports() {
-
     }
 
     private fun initTabLayout() {

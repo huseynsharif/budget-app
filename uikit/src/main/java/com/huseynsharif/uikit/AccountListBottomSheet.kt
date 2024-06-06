@@ -8,11 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.data.database.dao.AccountDao
 import com.huseynsharif.domain.entities.Account
-import com.huseynsharif.domain.entities.AccountType
 import com.huseynsharif.uikit.adapter.AccountsAdapter
 import com.huseynsharif.uikit.databinding.FragmentAccountListBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

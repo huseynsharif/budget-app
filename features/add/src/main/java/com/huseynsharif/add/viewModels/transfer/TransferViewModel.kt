@@ -3,6 +3,7 @@ package com.huseynsharif.add.viewModels.transfer
 import androidx.lifecycle.viewModelScope
 import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.core.base.BaseViewModel
+import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.AccountDao
 import com.huseynsharif.data.database.dao.RecordDao
 import com.huseynsharif.domain.entities.Account
@@ -17,8 +18,9 @@ import javax.inject.Inject
 @HiltViewModel
 class TransferViewModel @Inject constructor(
     private val recordDao: RecordDao,
-    private val accountDao: AccountDao
-) : BaseViewModel<TransferState, TransferEffect, TransferEvent>() {
+    private val accountDao: AccountDao,
+    currencyService: CurrencyService
+) : BaseViewModel<TransferState, TransferEffect, TransferEvent>(currencyService) {
     override fun getInitialState() = TransferState(isLoading = false)
 
     init {

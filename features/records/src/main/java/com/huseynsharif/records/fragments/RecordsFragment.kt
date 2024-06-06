@@ -40,19 +40,15 @@ class RecordsFragment :
     private fun showReports() {
         lifecycleScope.launch {
             val decimalFormat = DecimalFormat("#.##")
-
-            viewModel.findSumOfExpenses()
-                .combine(viewModel.findSumOfIncome()) { expenses, income ->
-                    Pair(expenses, income)
-                }
-                .collect { (expenses, income) ->
+            viewModel.findSumOfExpenses().combine(viewModel.findSumOfIncome()) { expenses, income ->
+                    Pair(expenses ?: 0.0, income ?: 0.0)
+                }.collect { (expenses, income) ->
                     binding.expenses.text = decimalFormat.format(expenses)
                     binding.income.text = decimalFormat.format(income)
-                    binding.balance.text = decimalFormat.format(income-expenses)
+                    binding.balance.text = decimalFormat.format(income - expenses)
                 }
         }
     }
-
 
 
     private fun initAdapter() {

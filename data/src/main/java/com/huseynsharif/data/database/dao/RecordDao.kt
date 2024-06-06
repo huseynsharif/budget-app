@@ -26,9 +26,9 @@ interface RecordDao {
     fun update(record: Record)
 
     @Query("SELECT SUM(amount_usd) FROM records WHERE type = 'EXPENSES'")
-    fun getSumOfExpenses(): Flow<Double>
+    fun getSumOfExpenses(): Flow<Double?>
 
     @Query("SELECT SUM(amount_usd) FROM records WHERE type = 'INCOME'")
-    fun getSumOfIncomes(): Flow<Double>
+    fun getSumOfIncomes(): Flow<Double?>
 
 }

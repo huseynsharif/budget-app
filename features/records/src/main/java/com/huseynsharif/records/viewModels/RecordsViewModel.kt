@@ -17,11 +17,11 @@ class RecordsViewModel @Inject constructor(
         return recordDao.getAll()
     }
 
-    fun findSumOfExpenses(): Flow<Double> {
+    fun findSumOfExpenses(): Flow<Double?> {
         return recordDao.getSumOfExpenses()
     }
 
-    fun findSumOfIncome(): Flow<Double> {
+    fun findSumOfIncome(): Flow<Double?> {
         return recordDao.getSumOfIncomes()
     }
 }

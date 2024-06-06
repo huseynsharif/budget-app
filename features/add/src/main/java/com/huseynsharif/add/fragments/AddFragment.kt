@@ -1,7 +1,6 @@
 package com.huseynsharif.add.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +14,6 @@ import com.huseynsharif.add.viewModels.add.AddEvent
 import com.huseynsharif.add.viewModels.add.AddState
 import com.huseynsharif.add.viewModels.add.AddViewModel
 import com.huseynsharif.core.base.BaseFragment
-import com.huseynsharif.domain.entities.Record
-import com.huseynsharif.domain.entities.RecordType
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -30,11 +27,15 @@ class AddFragment :
 
     override fun getViewModelClass() = AddViewModel::class.java
 
-    var currentTab = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initTabLayout()
+
+    }
+
+    private fun initTabLayout() {
         val viewPager: ViewPager2 = binding.viewPager
         val tabLayout: TabLayout = binding.tabLayout
 
@@ -48,15 +49,7 @@ class AddFragment :
                 2 -> "Transfer"
                 else -> null
             }
-            currentTab = tab.text.toString()
         }.attach()
-
-//        binding.keyboard.onSubmit = { recordKeyboardDto ->
-//            viewModel.saveRecord(
-//                currentTab, recordKeyboardDto,
-//
-//                )
-//        }
     }
 
 }
