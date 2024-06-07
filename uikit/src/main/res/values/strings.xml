@@ -26,4 +26,12 @@
     <string name="amount">Amount</string>
     <string name="save">Save</string>
     <string name="shopping">Shopping</string>
+    <string name="name">Name:</string>
+    <string name="type">Type:</string>
+    <string name="currency">Currency:</string>
+    <string name="balance">Balance:</string>
+    <string name="my_card">My card</string>
+    <string name="debit">Debit</string>
+    <string name="azn">AZN</string>
+    <string name="_123">123</string>
 </resources>
