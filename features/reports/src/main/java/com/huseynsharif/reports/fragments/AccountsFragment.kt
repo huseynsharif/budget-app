@@ -62,7 +62,7 @@ class AccountsFragment :
     }
 
     private fun initAccountsAdapter() {
-        adapter = AccountsAdapter(requireContext())
+        adapter = AccountsAdapter(requireContext(), parentFragmentManager = parentFragmentManager)
         binding.accountList.adapter = adapter
 
         val accounts = viewModel.getAllAccounts()

@@ -44,9 +44,9 @@ class AccountListBottomSheet(
     }
 
     private fun initAdapter() {
-        adapter = AccountsAdapter(requireContext(), selectedCategory, getPinned) {
+        adapter = AccountsAdapter(requireContext(), selectedCategory, getPinned, {
             this.dismiss()
-        }
+        })
         binding.accounts.adapter = adapter
 
         val accounts = accountDao.getAll()
