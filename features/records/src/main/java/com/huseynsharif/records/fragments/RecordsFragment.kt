@@ -52,7 +52,7 @@ class RecordsFragment :
 
 
     private fun initAdapter() {
-        adapter = RecordsAdapter(requireContext())
+        adapter = RecordsAdapter(requireContext(), parentFragmentManager)
         binding.savedRecords.adapter = adapter
     }
 

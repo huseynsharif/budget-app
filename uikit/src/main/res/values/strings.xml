@@ -37,4 +37,15 @@
     <string name="delete_account">Delete account</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="record_info">Record Info</string>
+    <string name="category">Category</string>
+    <string name="account">Account:</string>
+    <string name="amount2">Amount:</string>
+    <string name="note">Note:</string>
+    <string name="account_to">Account to:</string>
+    <string name="amount_to">Amount to:</string>
+    <string name="bla_bla_bla">bla bla bla</string>
+    <string name="my_second_card">My second card</string>
+    <string name="_456">456</string>
+    <string name="expenses">expenses</string>
 </resources>

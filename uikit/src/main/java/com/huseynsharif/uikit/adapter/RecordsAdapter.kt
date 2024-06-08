@@ -3,15 +3,18 @@ package com.huseynsharif.uikit.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.domain.entities.Record
+import com.huseynsharif.uikit.RecordInfoBottomSheet
 import com.huseynsharif.uikit.databinding.CardRecordBinding
 
 class RecordsAdapter(
-    private val context: Context
+    private val context: Context,
+    private val parentFragmentManager: FragmentManager
 ) : ListAdapter<Record, RecordsAdapter.RecordsViewHolder>(RecordsDiffCheck()) {
     inner class RecordsViewHolder(
         val binding: CardRecordBinding
@@ -23,6 +26,11 @@ class RecordsAdapter(
                 binding.categoryIcon.setImageResource(getResourceIdByName(context, record.category.icon))
                 binding.currency.text = record.account.currency
                 binding.amount.text = record.amount.toString()
+            }
+
+            binding.root.setOnClickListener {
+                val bottomSheet = RecordInfoBottomSheet(record)
+                bottomSheet.show(parentFragmentManager, bottomSheet.tag)
             }
         }
 
