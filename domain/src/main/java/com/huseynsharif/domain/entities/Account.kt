@@ -5,16 +5,16 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "accounts")
-data class Account (
+data class Account(
     @ColumnInfo(name = "name")
-    val name: String,
+    var name: String,
     @ColumnInfo(name = "type")
-    val type: AccountType,
-    @ColumnInfo(name="currency")
-    val currency:String,
-    @ColumnInfo(name="amount")
-    var amount:Double,
+    var type: AccountType,
+    @ColumnInfo(name = "currency")
+    var currency: String,
+    @ColumnInfo(name = "amount")
+    var amount: Double,
     @ColumnInfo("account_id")
     @PrimaryKey(autoGenerate = true)
-    val id:Long = 0
+    val id: Long = 0
 )

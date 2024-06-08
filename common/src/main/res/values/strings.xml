@@ -26,11 +26,11 @@
     </string-array>
 
     <string-array name="account_type_icons_list">
-        <item>Cash</item>
-        <item>Bitcoin</item>
-        <item>Debit</item>
-        <item>Mastercard</item>
-        <item>Visa</item>
+        <item>CASH</item>
+        <item>BITCOIN</item>
+        <item>DEBIT</item>
+        <item>MASTERCARD</item>
+        <item>VISA</item>
     </string-array>
 
     <string-array name="currency_list">

@@ -34,4 +34,7 @@
     <string name="debit">Debit</string>
     <string name="azn">AZN</string>
     <string name="_123">123</string>
+    <string name="delete_account">Delete account</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

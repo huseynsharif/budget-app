@@ -38,18 +38,25 @@ class AccountsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initAccountsAdapter()
 
         binding.addAccount.setOnClickListener {
             initAddAccountBottomSheet()
         }
 
+
         calculateTotal()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadAccounts()
     }
 
     private fun calculateTotal() {
         val decimalFormat = DecimalFormat("#.##")
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             viewModel.getTotalBalance().collectLatest {
                 binding.totalBalance.text = decimalFormat.format(it)
             }
@@ -65,10 +72,14 @@ class AccountsFragment :
         adapter = AccountsAdapter(requireContext(), parentFragmentManager = parentFragmentManager)
         binding.accountList.adapter = adapter
 
+        loadAccounts()
+    }
+
+    private fun loadAccounts() {
         val accounts = viewModel.getAllAccounts()
 
         lifecycleScope.launch {
-            accounts.collect{list ->
+            accounts.collect { list ->
                 adapter.submitList(list)
             }
         }

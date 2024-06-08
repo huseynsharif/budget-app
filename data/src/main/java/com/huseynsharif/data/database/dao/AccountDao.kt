@@ -27,4 +27,7 @@ interface AccountDao {
     @Query("SELECT * FROM accounts WHERE account_id = :id")
     fun getAccountById(id: Long): Account
 
+    @Query("SELECT * FROM accounts WHERE name = :name")
+    fun getAccountByName(name: String):Account
+
 }

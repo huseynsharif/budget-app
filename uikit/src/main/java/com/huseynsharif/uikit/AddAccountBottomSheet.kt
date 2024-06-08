@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.data.database.dao.AccountDao
@@ -18,12 +17,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AddAccountBottomSheet : BottomSheetDialogFragment() {
+class AddAccountBottomSheet(
+    private val selectedAccount: Account?=null
+) : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentAddAccountBottomSheetBinding
 
     @Inject
     lateinit var accountDao: AccountDao
+
+    var onDismiss : (()->Unit) =  {
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -38,26 +43,46 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
 
         initAccountTypesSpinner()
         initCurrencySpinners()
-
+        fill()
         binding.btnSave.setOnClickListener {
             saveAccount()
         }
     }
 
+    private fun fill() {
+        if (selectedAccount!=null){
+            binding.apply {
+                accountName.setText(selectedAccount.name)
+                amount.setText(selectedAccount.amount.toString())
+            }
+        }
+    }
+
     private fun saveAccount() {
-        val account = Account(
-            binding.accountName.text.toString(),
-            AccountType.valueOf(binding.accountType.selectedItem.toString().uppercase()),
-            binding.currency.selectedItem.toString(),
-            binding.amount.text.toString().toDouble()
-        )
+
 
         CoroutineScope(Dispatchers.IO).launch {
-            accountDao.insert(account)
+            if(selectedAccount==null){
+                val account = Account(
+                    binding.accountName.text.toString(),
+                    AccountType.valueOf(binding.accountType.selectedItem.toString()),
+                    binding.currency.selectedItem.toString(),
+                    binding.amount.text.toString().toDouble()
+                )
+                accountDao.insert(account)
+            }
+            else{
+                selectedAccount.name = binding.accountName.text.toString()
+                selectedAccount.type = AccountType.valueOf(binding.accountType.selectedItem.toString().uppercase())
+                selectedAccount.currency = binding.currency.selectedItem.toString()
+                selectedAccount.amount = binding.amount.text.toString().toDouble()
+                accountDao.update(selectedAccount)
+            }
         }
 
         // close bottom sheet
         this.dismiss()
+        onDismiss.invoke()
 
     }
 
@@ -66,6 +91,10 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
         val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, currency)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.currency.adapter = adapter
+
+        if (selectedAccount!=null){
+            binding.currency.setSelection(currency.indexOf(selectedAccount.currency))
+        }
     }
 
     private fun initAccountTypesSpinner() {
@@ -75,6 +104,10 @@ class AddAccountBottomSheet : BottomSheetDialogFragment() {
             ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, accountTypes)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.accountType.adapter = adapter
+
+        if (selectedAccount!=null){
+            binding.accountType.setSelection(accountTypes.indexOf(selectedAccount.type.name))
+        }
 
     }
 
