@@ -4,11 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.huseynsharif.data.useCases.DeleteRecordUseCase
 import com.huseynsharif.domain.entities.Record
-import com.huseynsharif.uikit.databinding.FragmentAccountInfoBottomSheetBinding
 import com.huseynsharif.uikit.databinding.FragmentRecordInfoBottomSheetBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RecordInfoBottomSheet(
@@ -16,6 +20,9 @@ class RecordInfoBottomSheet(
 ) : BottomSheetDialogFragment() {
 
     lateinit var binding: FragmentRecordInfoBottomSheetBinding
+
+    @Inject
+    lateinit var deleteRecordUseCase: DeleteRecordUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +37,17 @@ class RecordInfoBottomSheet(
 
         fill()
 
+        binding.btnDelete.setOnClickListener {
+            deleteRecord()
+        }
+
+    }
+
+    private fun deleteRecord() {
+        lifecycleScope.launch(Dispatchers.IO){
+            deleteRecordUseCase(record)
+        }
+        this.dismiss()
     }
 
     private fun fill() {

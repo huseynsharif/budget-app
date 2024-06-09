@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.common.showShortToast
 import com.huseynsharif.data.database.dao.AccountDao
+import com.huseynsharif.data.useCases.DeleteAccountUseCase
+import com.huseynsharif.data.useCases.DeleteRecordUseCase
 import com.huseynsharif.data.useCases.UpdateAccountUseCase
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.uikit.databinding.FragmentAccountInfoBottomSheetBinding
@@ -25,7 +27,10 @@ class AccountInfoBottomSheet(
     private lateinit var binding: FragmentAccountInfoBottomSheetBinding
 
     @Inject
-    lateinit var deleteAccountUseCase: UpdateAccountUseCase
+    lateinit var updateAccountUseCase: UpdateAccountUseCase
+
+    @Inject
+    lateinit var deleteAccountUseCase: DeleteAccountUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
