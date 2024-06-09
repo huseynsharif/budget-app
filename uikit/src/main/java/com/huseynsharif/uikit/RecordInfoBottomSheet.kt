@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.huseynsharif.common.convertLongToDateString
 import com.huseynsharif.data.useCases.DeleteRecordUseCase
 import com.huseynsharif.domain.entities.Record
 import com.huseynsharif.uikit.databinding.FragmentRecordInfoBottomSheetBinding
@@ -57,6 +58,7 @@ class RecordInfoBottomSheet(
             account.text = record.account.name
             currency.text = record.account.currency
             amount.text = record.amount.toString()
+            date.text = convertLongToDateString(record.createdAt)
             note.text = record.note
             accountTo.text = record.accountTo?.name
             amountTo.text = record.amountTo?.toString()
@@ -67,6 +69,7 @@ class RecordInfoBottomSheet(
             }
 
         }
+
     }
 
 }

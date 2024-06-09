@@ -93,6 +93,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/currency_text" />
 
             <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/date"
+                android:textColor="@color/dark_yellow_text"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/amount_text" />
+
+            <TextView
                 android:id="@+id/note_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -102,7 +114,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/amount_text" />
+                app:layout_constraintTop_toBottomOf="@+id/date_text" />
 
             <TextView
                 android:id="@+id/account_to_text"
@@ -189,6 +201,18 @@
                 app:layout_constraintBottom_toBottomOf="@+id/amount_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/amount_text" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5 June 2024"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/date_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/date_text" />
 
             <TextView
                 android:id="@+id/note"

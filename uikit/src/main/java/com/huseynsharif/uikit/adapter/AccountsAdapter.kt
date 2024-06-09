@@ -11,6 +11,7 @@ import com.huseynsharif.common.getResourceIdByName
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.uikit.AccountInfoBottomSheet
 import com.huseynsharif.uikit.databinding.CardAccountBinding
+import java.text.DecimalFormat
 
 
 class AccountsAdapter(
@@ -29,7 +30,8 @@ class AccountsAdapter(
 
                 binding.accountTitle.text = account.name
                 binding.currency.text = account.currency
-                binding.balance.text = account.amount.toString()
+                val decimalFormat = DecimalFormat("#.##")
+                binding.balance.text = decimalFormat.format(account.amount)
                 binding.accountIcon.setImageResource(
                     getResourceIdByName(
                         context, account.type.name.lowercase()

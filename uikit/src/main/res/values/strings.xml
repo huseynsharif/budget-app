@@ -48,4 +48,5 @@
     <string name="my_second_card">My second card</string>
     <string name="_456">456</string>
     <string name="expenses">expenses</string>
+    <string name="date">Date:</string>
 </resources>
