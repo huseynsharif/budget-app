@@ -42,6 +42,12 @@ class RecordInfoBottomSheet(
             note.text = record.note
             accountTo.text = record.accountTo?.name
             amountTo.text = record.amountTo?.toString()
+
+            if (record.accountTo==null){
+                accountToText.visibility = View.GONE
+                amountToText.visibility = View.GONE
+            }
+
         }
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.data.database.dao.AccountDao
+import com.huseynsharif.data.useCases.GetAllAccountsUseCase
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.uikit.adapter.AccountsAdapter
 import com.huseynsharif.uikit.databinding.FragmentAccountListBottomSheetBinding
@@ -24,7 +25,7 @@ class AccountListBottomSheet(
     private lateinit var adapter: AccountsAdapter
 
     @Inject
-    lateinit var accountDao: AccountDao
+    lateinit var getAllAccountsUseCase: GetAllAccountsUseCase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -49,7 +50,7 @@ class AccountListBottomSheet(
         })
         binding.accounts.adapter = adapter
 
-        val accounts = accountDao.getAll()
+        val accounts = getAllAccountsUseCase()
 
         lifecycleScope.launch {
             accounts.collect{list ->

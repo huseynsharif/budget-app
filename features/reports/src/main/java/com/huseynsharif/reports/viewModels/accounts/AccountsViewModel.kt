@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.huseynsharif.core.base.BaseViewModel
 import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.AccountDao
+import com.huseynsharif.data.useCases.GetAllAccountsUseCase
 import com.huseynsharif.domain.entities.Account
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -14,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AccountsViewModel @Inject constructor(
-    private val accountDao: AccountDao,
+    private val getAllAccountsUseCase: GetAllAccountsUseCase,
     currencyService: CurrencyService
 ) : BaseViewModel<AccountsState, AccountsEffect, AccountsEvent>(currencyService) {
     override fun getInitialState() = AccountsState(isLoading = false)
@@ -23,7 +24,7 @@ class AccountsViewModel @Inject constructor(
         val totalBalance = MutableStateFlow(0.0)
 
         viewModelScope.launch {
-            accountDao.getAll().collect { accountsList ->
+            getAllAccounts().collect { accountsList ->
                 var total = 0.0
                 accountsList.forEach { account ->
                     total += if (account.currency == USD) {
@@ -40,7 +41,7 @@ class AccountsViewModel @Inject constructor(
     }
 
     fun getAllAccounts(): Flow<List<Account>> {
-        return accountDao.getAll()
+        return getAllAccountsUseCase()
     }
 
 

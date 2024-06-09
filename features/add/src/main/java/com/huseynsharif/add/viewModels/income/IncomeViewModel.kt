@@ -1,11 +1,9 @@
 package com.huseynsharif.add.viewModels.income
 
 import androidx.lifecycle.viewModelScope
-import com.huseynsharif.add.viewModels.expenses.ExpensesEvent
-import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
+import com.huseynsharif.data.useCases.AddRecordUseCase
 import com.huseynsharif.core.base.BaseViewModel
 import com.huseynsharif.data.api.CurrencyService
-import com.huseynsharif.data.database.dao.RecordDao
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.Category
 import com.huseynsharif.domain.entities.Record
@@ -16,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class IncomeViewModel @Inject constructor(
-    private val recordDao: RecordDao,
-    private val currencyService: CurrencyService
+    private val addRecordUseCase: AddRecordUseCase,
+    currencyService: CurrencyService
 ) : BaseViewModel<IncomeState, IncomeEffect, IncomeEvent>(currencyService) {
     override fun getInitialState() = IncomeState(isLoading = false)
 
@@ -28,20 +26,20 @@ class IncomeViewModel @Inject constructor(
     override fun onEventUpdate(event: IncomeEvent) {
         super.onEventUpdate(event)
         when (event) {
-            is IncomeEvent.AddIncome -> saveRecord(event.record)
+            is IncomeEvent.AddIncome -> saveIncome(event.record)
             is IncomeEvent.SetSelectedAccount -> setSelectedAccount(event.account)
             is IncomeEvent.SetSelectedCategory -> setSelectedCategory(event.category)
         }
     }
 
-    private fun saveRecord(record: Record) {
+    private fun saveIncome(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
-            record.amountUsd = if (record.account.currency == ExpensesViewModel.USD) {
+            record.amountUsd = if (record.account.currency == USD) {
                 record.amount
             } else {
-                exchange(record.account.currency, ExpensesViewModel.USD, record.amount)
+                exchange(record.account.currency, USD, record.amount)
             }
-            recordDao.insert(record)
+            addRecordUseCase(record)
         }
     }
 

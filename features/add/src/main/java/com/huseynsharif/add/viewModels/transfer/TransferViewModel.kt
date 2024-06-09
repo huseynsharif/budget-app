@@ -1,6 +1,8 @@
 package com.huseynsharif.add.viewModels.transfer
 
 import androidx.lifecycle.viewModelScope
+import com.huseynsharif.data.useCases.AddRecordUseCase
+import com.huseynsharif.data.useCases.UpdateAccountUseCase
 import com.huseynsharif.add.viewModels.expenses.ExpensesViewModel
 import com.huseynsharif.core.base.BaseViewModel
 import com.huseynsharif.data.api.CurrencyService
@@ -17,8 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TransferViewModel @Inject constructor(
-    private val recordDao: RecordDao,
-    private val accountDao: AccountDao,
+    private val addRecordUseCase: AddRecordUseCase,
+    private val updateAccountUseCase: UpdateAccountUseCase,
     currencyService: CurrencyService
 ) : BaseViewModel<TransferState, TransferEffect, TransferEvent>(currencyService) {
     override fun getInitialState() = TransferState(isLoading = false)
@@ -69,9 +71,9 @@ class TransferViewModel @Inject constructor(
             val accountTo = record.accountTo
             accountFrom.amount -= record.amount
             accountTo?.amount = accountTo?.amount!! + record.amountTo!!
-            accountDao.update(accountFrom)
-            accountDao.update(accountTo)
-            recordDao.insert(record)
+            updateAccountUseCase(accountFrom)
+            updateAccountUseCase(accountTo)
+            addRecordUseCase(record)
         }
     }
 

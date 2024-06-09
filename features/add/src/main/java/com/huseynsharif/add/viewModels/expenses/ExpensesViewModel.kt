@@ -1,6 +1,8 @@
 package com.huseynsharif.add.viewModels.expenses
 
 import androidx.lifecycle.viewModelScope
+import com.huseynsharif.data.useCases.AddRecordUseCase
+import com.huseynsharif.data.useCases.UpdateAccountUseCase
 import com.huseynsharif.core.base.BaseViewModel
 import com.huseynsharif.data.api.CurrencyService
 import com.huseynsharif.data.database.dao.AccountDao
@@ -15,8 +17,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ExpensesViewModel @Inject constructor(
-    private val recordDao: RecordDao,
-    private val accountDao: AccountDao,
+    private val addRecordUseCase: AddRecordUseCase,
+    private val updateAccountUseCase: UpdateAccountUseCase,
     currencyService: CurrencyService
 ) : BaseViewModel<ExpensesState, ExpensesEffect, ExpensesEvent>(currencyService) {
     override fun getInitialState() = ExpensesState(isLoading = false)
@@ -29,13 +31,13 @@ class ExpensesViewModel @Inject constructor(
         super.onEventUpdate(event)
 
         when (event) {
-            is ExpensesEvent.AddExpense -> saveRecord(event.record)
+            is ExpensesEvent.AddExpense -> saveExpense(event.record)
             is ExpensesEvent.SetSelectedAccount -> setSelectedAccount(event.account)
             is ExpensesEvent.SetSelectedCategory -> setSelectedCategory(event.category)
         }
     }
 
-    private fun saveRecord(record: Record) {
+    private fun saveExpense(record: Record) {
         viewModelScope.launch(Dispatchers.IO) {
             record.amountUsd = if (record.account.currency == USD) {
                 record.amount
@@ -45,8 +47,8 @@ class ExpensesViewModel @Inject constructor(
 
             val account = record.account
             account.amount -= record.amount
-            accountDao.update(account)
-            recordDao.insert(record)
+            updateAccountUseCase(account)
+            addRecordUseCase(record)
         }
     }
 

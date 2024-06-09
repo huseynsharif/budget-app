@@ -17,12 +17,6 @@
         android:icon="@drawable/newspaper"
         android:id="@+id/reports_main_navigation"
         android:title="@string/reports" />
-
-    <item
-        android:icon="@drawable/settings"
-        android:id="@+id/settings_main_navigation"
-        android:title="@string/settings" />
-
-
+    
 
 </menu>

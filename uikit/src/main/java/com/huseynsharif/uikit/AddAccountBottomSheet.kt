@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.huseynsharif.data.database.dao.AccountDao
+import com.huseynsharif.data.useCases.AddAccountUseCase
+import com.huseynsharif.data.useCases.UpdateAccountUseCase
 import com.huseynsharif.domain.entities.Account
 import com.huseynsharif.domain.entities.AccountType
 import com.huseynsharif.uikit.databinding.FragmentAddAccountBottomSheetBinding
@@ -24,7 +26,10 @@ class AddAccountBottomSheet(
     lateinit var binding: FragmentAddAccountBottomSheetBinding
 
     @Inject
-    lateinit var accountDao: AccountDao
+    lateinit var updateAccountUseCase: UpdateAccountUseCase
+
+    @Inject
+    lateinit var addAccountUseCase: AddAccountUseCase
 
     var onDismiss : (()->Unit) =  {
 
@@ -69,14 +74,14 @@ class AddAccountBottomSheet(
                     binding.currency.selectedItem.toString(),
                     binding.amount.text.toString().toDouble()
                 )
-                accountDao.insert(account)
+                addAccountUseCase(account)
             }
             else{
                 selectedAccount.name = binding.accountName.text.toString()
                 selectedAccount.type = AccountType.valueOf(binding.accountType.selectedItem.toString().uppercase())
                 selectedAccount.currency = binding.currency.selectedItem.toString()
                 selectedAccount.amount = binding.amount.text.toString().toDouble()
-                accountDao.update(selectedAccount)
+                updateAccountUseCase(selectedAccount)
             }
         }
 
